@@ -17,15 +17,15 @@ future: true
 title : SMOOTH Lab
 tagline: SMOOTH--Skin & Mucosal Microbiomics Optimizing Total Health 
 institution:
-  url: http://fiu.edu
-  name: Florida International University
+  url: https://www.smu.edu.cn/
+  name: Southern Medical University
 department:
-  url: http://cn.fiu.edu
-  name: Cognitive Neuroscience
+  url: https://skinmicrobe.github.io
+  name: Skin Microbe
 author :
-  name : Taylor Salo
-  email : tsalo006@fiu.edu
-  github : tsalo
+  name : July
+  email : July.Yang.SMU@outlook.com
+  github : July0709
 #  feedburner : feedname
 
 # The production_url is only used when full-domain names are needed
@@ -36,7 +36,7 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://www.nbclab.github.io
+production_url : https://july0709.github.io/
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
