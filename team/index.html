@@ -13,211 +13,125 @@ navorder: 1
 {% assign alumni = "" | split: "" %}
 {% for member in temp %}
     {% if member.alumni != true %}
-		    {% assign current = current | push: member %}
-		{% else %}
-		    {% assign alumni = alumni | push: member %}
-		{% endif %}
+        {% assign current = current | push: member %}
+    {% else %}
+        {% assign alumni = alumni | push: member %}
+    {% endif %}
 {% endfor %}
 
-<div class="bigspacer"></div>
-<div class="bigtitle text-center">The Team</div>
-<div class="smallspacer"></div>
-<hr/>
-
-<div style="text-align: center">
-<img src="/assets/images/photos/lab_photo.png" style="width:80%; height:auto; border:1px solid #021a40;">
+<!-- ======================================================
+     PAGE HEADER
+     ====================================================== -->
+<div class="section-header reveal" style="padding-top: 32px;">
+  <span class="apple-section-label">SMOOTH Lab</span>
+  <h1 class="apple-section-title" style="margin-top:8px;">The Team</h1>
+  <p class="apple-section-sub">The researchers behind our science</p>
 </div>
 
-<hr/>
+<!-- Lab Photo -->
+<div class="lab-photo-container reveal" style="margin-bottom:60px;">
+  <img src="/assets/images/photos/lab_photo.png" alt="SMOOTH Lab group photo" style="width:100%;height:auto;display:block;max-height:500px;object-fit:cover;">
+</div>
 
-<table align="center"; width=1000px>
-	{% tablerow member in current cols:2 %}
+<hr class="apple-divider">
+
+<!-- ======================================================
+     CURRENT MEMBERS
+     ====================================================== -->
+<section style="margin-bottom: 64px;">
+  <div class="reveal" style="margin-bottom:32px;">
+    <h2 style="font-size:1.4rem;font-weight:700;color:#1D1D1F;letter-spacing:-0.02em;">Current Members</h2>
+  </div>
+
+  <div class="team-grid">
+    {% for member in current %}
     {% if member.image %}
       {% assign image = member.image %}
     {% else %}
       {% assign image = "/assets/images/placeholder-user.png" %}
     {% endif %}
-		<div class="col-md-1.25 memberbox">
-			<div class="media" style="width:500px; height:200px">
-					<a class="pull-left" href="{{ member.url }}">
-						<img class="media-object member-photo" src="{{ image }}">
-					</a>
-				<div class="media-body">
-						<div class="head media-heading member-name"><a href="{{ member.url }}" class="off">{{ member.title }}</a></div>
-						<p class="note">{{ member.position }}</p>
-						<p class="note">{{ member.department }}</p>
-            <p>
-            	{% if member.site %}
-          			<a class="social site" href="{{ member.site }}" title="Personal Site">
-                  		<i class="fa fa-user fa-lg"></i>
-                	</a>
-          		{% endif %}
+    <div class="team-card reveal">
+      <a href="{{ member.url }}" tabindex="-1" aria-hidden="true">
+        <img class="team-card-photo" src="{{ image }}" alt="{{ member.title }}">
+      </a>
+      <div class="team-card-name">
+        <a href="{{ member.url }}" class="off">{{ member.title }}</a>
+      </div>
+      <div class="team-card-position">{{ member.position }}</div>
+      <div class="team-card-dept">{{ member.department }}</div>
+      <div class="team-card-social">
+        {% if member.site %}
+          <a class="social site" href="{{ member.site }}" title="Personal Site"><i class="fa fa-user fa-lg"></i></a>
+        {% endif %}
+        {% if member.cv %}
+          {% capture cv_url %}{% include /functions/get_drive_url.html url=member.cv %}{% endcapture %}
+          <a class="social cv" href="{{ cv_url }}" title="CV"><i class="ai ai-cv-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.github %}
+          <a class="social github" href="https://github.com/{{ member.github }}" title="GitHub"><i class="fa fa-github-square fa-lg"></i></a>
+        {% endif %}
+        {% if member.twitter %}
+          <a class="social twitter" href="https://twitter.com/{{ member.twitter }}" title="Twitter"><i class="fa fa-twitter-square fa-lg"></i></a>
+        {% endif %}
+        {% if member.scholar %}
+          <a class="social scholar" href="https://scholar.google.com/citations?user={{ member.scholar }}" title="Google Scholar"><i class="ai ai-google-scholar-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.orcid %}
+          <a class="social orcid" href="https://orcid.org/{{ member.orcid }}" title="ORCID"><i class="ai ai-orcid-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.researchgate %}
+          <a class="social researchgate" href="https://www.researchgate.net/profile/{{ member.researchgate }}" title="ResearchGate"><i class="ai ai-researchgate-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.osf %}
+          <a class="social osf" href="https://osf.io/{{ member.osf }}" title="OSF"><i class="ai ai-osf-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.figshare %}
+          <a class="social figshare" href="{{ member.figshare }}" title="FigShare"><i class="ai ai-figshare-square ai-lg"></i></a>
+        {% endif %}
+        {% if member.publons %}
+          <a class="social publons" href="https://publons.com/author/{{ member.publons }}" title="Publons"><i class="ai ai-publons-square ai-lg"></i></a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 
-			  	{% if member.cv %}
-					{% capture cv_url %}
-						{% include /functions/get_drive_url.html url=member.cv %}
-					{% endcapture %}
-                	<a class="social cv" href="{{ cv_url }}" title="Curriculum Vitae">
-                  		<i class="ai ai-cv-square ai-lg"></i>
-                	</a>
-			  	{% endif %}
+<!-- ======================================================
+     ALUMNI
+     ====================================================== -->
+{% assign alumni_size = alumni | size %}
+{% if alumni_size > 0 %}
+<hr class="apple-divider">
+<section style="margin-bottom: 64px;">
+  <div class="reveal" style="margin-bottom:28px;">
+    <h2 style="font-size:1.4rem;font-weight:700;color:#1D1D1F;letter-spacing:-0.02em;">Alumni</h2>
+    <p style="font-size:0.875rem;color:#6E6E73;margin:6px 0 0;">Former members of the SMOOTH Lab</p>
+  </div>
 
-			  	{% if member.nih_biosketch %}
-					{% capture nih_biosketch_url %}
-						{% include /functions/get_drive_url.html url=member.nih_biosketch %}
-					{% endcapture %}
-					<a class="social nih_biosketch" href="{{ nih_biosketch_url }}" title="NIH Biosketch">
-						<i class="fa fa-paragraph fa-lg"></i>
-					</a>
-              	{% endif %}
-
-          		{% if member.github %}
-          			<a class="social github" href="https://github.com/{{ member.github }}" title="GitHub">
-						<i class="fa fa-github-square fa-lg"></i>
-					</a>
-          		{% endif %}
-
-          		{% if member.twitter %}
-          			<a class="social twitter" href="https://twitter.com/{{ member.twitter }}" title="Twitter">
-                  		<i class="fa fa-twitter-square fa-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.scholar %}
-        			<a class="social scholar" href="https://scholar.google.com/citations?user={{ member.scholar }}" title="Google Scholar">
-                  		<i class="ai ai-google-scholar-square ai-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.osf %}
-          			<a class="social osf" href="https://osf.io/{{ member.osf }}" title="Open Science Framework">
-          				<i class="ai ai-osf-square ai-lg"></i>
-                	</a>
-          		{% endif %}
-
-				{% if member.figshare %}
-					<a class="social figshare" href="{{ member.figshare }}" title="FigShare">
-						<i class="ai ai-figshare-square ai-lg"></i>
-					</a>
-				{% endif %}
-
-          		{% if member.researchgate %}
-                	<a class="social researchgate" href="https://www.researchgate.net/profile/{{ member.researchgate }}" title="ResearchGate">
-          				<i class="ai ai-researchgate-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-
-              {% if member.impactstory %}
-          			<a class="social impactstory" href="https://profiles.impactstory.org/u/{{ member.impactstory }}" title="ImpactStory">
-          				<i class="ai ai-impactstory-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-
-          		{% if member.orcid %}
-          			<a class="social orcid" href="https://orcid.org/{{ member.orcid }}" title="ORCID">
-          				<i class="ai ai-orcid-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-
-          		{% if member.publons %}
-          			<a class="social publons" href="https://publons.com/author/{{ member.publons }}" title="Publons">
-          				<i class="ai ai-publons-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-            </p>
-					</div>
-			</div>
-		</div>
-	{% endtablerow %}
-</table>
-
-<div class="bigspacer"></div>
-<hr/>
-<!-- <div class="bigtitle text-center">Alumni</div> -->
-<div class="bigspacer"></div>
-
-<table align="center"; width=1000px>
-	{% tablerow member in alumni cols:3 %}
+  <div class="alumni-grid">
+    {% for member in alumni %}
     {% if member.image %}
       {% assign image = member.image %}
     {% else %}
       {% assign image = "/assets/images/placeholder-user.png" %}
     {% endif %}
-		<div class="col-md-1.5 memberbox">
-			<div class="media" style="width:333px; height:150px">
-					<a class="pull-left" href="{{ member.url }}">
-						<img class="media-object member-photo" src="{{ image }}" style="width:100px; height:auto; border:1px solid #021a40;">
-					</a>
-				<div class="media-body">
-					<div class="head media-heading member-name"><a href="{{ member.url }}" class="off">{{ member.title }}</a></div>
-					<p class="note">{{ member.position }}</p>
-					<p class="note">{{ member.department }}</p>
-            		<p>
-              {% if member.site %}
-          			<a class="social site" href="{{ member.site }}">
-                  		<i class="fa fa-user fa-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.cv %}
-          			<a class="social cv" href="{{ member.cv }}">
-                  		<i class="fa fa-file-text-o fa-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.github %}
-          			<a class="social github" href="https://github.com/{{ member.github }}">
-                 		<i class="fa fa-github-square fa-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.twitter %}
-          			<a class="social twitter" href="https://twitter.com/{{ member.twitter }}">
-                  		<i class="fa fa-twitter-square fa-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.scholar %}
-        			<a class="social scholar" href="http://scholar.google.com/citations?user={{ member.scholar }}">
-                  		<i class="ai ai-google-scholar-square ai-lg"></i>
-                	</a>
-          		{% endif %}
-
-          		{% if member.osf %}
-          			<a class="social osf" href="http://osf.io/{{ member.osf }}">
-          				<i class="ai ai-osf-square ai-lg"></i>
-                	</a>
-          		{% endif %}
-
-				{% if member.figshare %}
-					<a class="social figshare" href="{{ member.figshare }}">
-						<i class="ai ai-figshare-square ai-lg"></i>
-					</a>
-			  	{% endif %}
-
-          		{% if member.researchgate %}
-                	<a class="social researchgate" href="https://www.researchgate.net/profile/{{ member.researchgate }}">
-          				<i class="ai ai-researchgate-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-
-          		{% if member.orcid %}
-          			<a class="social orcid" href="http://orcid.org/{{ member.orcid }}">
-          				<i class="ai ai-orcid-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-
-          		{% if member.publons %}
-          			<a class="social publons" href="https://publons.com/author/{{ member.publons }}">
-          				<i class="ai ai-publons-square ai-lg"></i>
-          			</a>
-          		{% endif %}
-            </p>
-			</div>
-			</div>
-		</div>
-	{% endtablerow %}
-</table>
-
-
-<div class="bigspacer"></div>
+    <div class="alumni-card reveal">
+      <img class="alumni-card-photo" src="{{ image }}" alt="{{ member.title }}">
+      <div class="alumni-card-info">
+        <div class="alumni-card-name">
+          <a href="{{ member.url }}" class="off">{{ member.title }}</a>
+        </div>
+        <div class="alumni-card-position">{{ member.position }}</div>
+        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+          {% if member.site %}<a class="social site" href="{{ member.site }}" title="Site" style="font-size:13px;"><i class="fa fa-user"></i></a>{% endif %}
+          {% if member.github %}<a class="social github" href="https://github.com/{{ member.github }}" title="GitHub" style="font-size:13px;"><i class="fa fa-github-square"></i></a>{% endif %}
+          {% if member.scholar %}<a class="social scholar" href="https://scholar.google.com/citations?user={{ member.scholar }}" title="Scholar" style="font-size:13px;"><i class="ai ai-google-scholar-square"></i></a>{% endif %}
+          {% if member.orcid %}<a class="social orcid" href="https://orcid.org/{{ member.orcid }}" title="ORCID" style="font-size:13px;"><i class="ai ai-orcid-square"></i></a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

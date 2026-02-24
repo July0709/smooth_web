@@ -7,15 +7,9 @@ navorder: 3
 ---
 {% include JB/setup %}
 
-<div class="bigspacer"></div>
-<div class="bigtitle text-center">Publications</div>
-<div class="smallspacer"></div>
-<hr/>
-
-<!-- First we do the preprints and papers in press -->
 {% assign preprints = "" | split: "" %}
-{% assign in_press = "" | split: "" %}
-{% assign other = "" | split: "" %}
+{% assign in_press  = "" | split: "" %}
+{% assign other     = "" | split: "" %}
 {% for product in site.categories.papers %}
   {% capture nowunix %}{{ 'now' | date: '%s' }}{% endcapture %}
   {% capture posttime %}{{ product.date | date: '%s' }}{% endcapture %}
@@ -32,170 +26,139 @@ navorder: 3
   {% endif %}
 {% endfor %}
 
+<!-- ======================================================
+     PAGE HEADER
+     ====================================================== -->
+<div class="section-header reveal" style="padding-top: 32px;">
+  <span class="apple-section-label">SMOOTH Lab</span>
+  <h1 class="apple-section-title" style="margin-top:8px;">Publications</h1>
+  <p class="apple-section-sub">Research output from our laboratory</p>
+</div>
+<hr class="apple-divider">
+
+<!-- ======================================================
+     PAPER CARD MACRO (included inline via Liquid loops)
+     ====================================================== -->
+
+<!-- ---- Preprints ---- -->
 {% assign n_preprints = preprints | size %}
 {% if n_preprints > 0 %}
-  <div class="title text-center">Preprints</div>
-  <div class="bigspacer"></div>
-{% endif %}
-
-<table align="center"; width=1250px>
-  {% tablerow product in preprints cols:2 %}
-    {% if product.image %}
-      {% assign image = product.image %}
-    {% else %}
-      {% assign image = "/assets/images/placeholder.png" %}
-    {% endif %}
-
-    <div class="col-md-2.5 paperbox">
-      <div class="media" style="width:525px; height: 250px">
-        <div class="media">
-          <a class="pull-left" href="{{ product.url }}">
-            <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #021a40;">
-          </a>
-          <div class="media-body">
-            <div class="smallhead media-heading">
-              {% if product.tags contains "chapter" %}
-                <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
-              {% elsif product.tags contains "correspondence" %}
-                <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
-              {% else %}
-                <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-              {% endif %}
-            </div>
-            <p>
-              <div class="note">
-                <!-- This took a while, but it links the name of each author from the lab
-                to their page and keeps collaborators' names as strings -->
-                {% assign split_authors = product.authors | split: ", " %}
-                {% for author in split_authors %}
-                    {% assign author_in_lab = false %}
-                    {% for member in site.categories.team %}
-                        {% for science_name in member.science_names %}
-                            {% if author == science_name %}
-                                {% assign author_in_lab = true %}
-                                <a class="off" href="{{ member.url }}">{{ science_name }}</a>,
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                    {% for collab in site.data.collaborators %}
-                        {% if author == collab.science_name %}
-                            {% assign author_in_lab = true %}
-                            <a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
-                        {% endif %}
-                    {% endfor %}
-                    {% if author_in_lab == false %}
-                        {{ author }},
-                    {% endif %}
-                {% endfor %}
-                <span class="journal">
-                  {{ product.journal }}
-                </span>
-                {% if product.volume %}
-                  {{ product.volume }}
-                {% endif %}
-                {% if product.issue %}
-                  ({{ product.issue }})
-                {% endif %}
-                {% if product.pages %}
-                  :{{ product.pages }}
-                {% endif %}
-                ({{ product.year }}).
-              </div>
-            </p>
+<section style="margin-bottom:48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">Preprints</h2>
+    <span class="paper-tag">{{ n_preprints }}</span>
+  </div>
+  <div class="paper-grid">
+    {% for product in preprints %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
+    <div class="paper-card reveal">
+      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+        {% if image != "" %}
+          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+        {% else %}
+          <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
+            <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
           </div>
+        {% endif %}
+      </a>
+      <div class="paper-card-body">
+        <span class="paper-tag">Preprint</span>
+        <div class="paper-card-title">
+          {% if product.tags contains "chapter" %}
+            <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
+          {% elsif product.tags contains "correspondence" %}
+            <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
+          {% else %}
+            <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          {% endif %}
+        </div>
+        <div class="paper-card-authors">
+          {% assign split_authors = product.authors | split: ", " %}
+          {% for author in split_authors %}
+            {% assign author_in_lab = false %}
+            {% for member in site.categories.team %}
+              {% for science_name in member.science_names %}
+                {% if author == science_name %}
+                  {% assign author_in_lab = true %}
+                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            {% if author_in_lab == false %}{{ author }},{% endif %}
+          {% endfor %}
+        </div>
+        <div class="paper-card-journal">
+          <span class="journal">{{ product.journal }}</span>
+          {% if product.volume %} {{ product.volume }}{% endif %}
+          {% if product.issue %}({{ product.issue }}){% endif %}
+          {% if product.pages %}:{{ product.pages }}{% endif %}
+          ({{ product.year }})
         </div>
       </div>
     </div>
-    <div class="smallspacer"></div>
-  {% endtablerow %}
-</table>
-
-{% if n_preprints > 0 %}
-  <hr/>
+    {% endfor %}
+  </div>
+</section>
+<hr class="apple-divider">
 {% endif %}
 
+<!-- ---- In Press ---- -->
 {% assign n_in_press = in_press | size %}
 {% if n_in_press > 0 %}
-  <div class="title text-center">In Press</div>
-  <div class="bigspacer"></div>
-{% endif %}
-
-<table align="center"; width=1250px>
-  {% tablerow product in in_press cols:2 %}
-    {% if product.image %}
-      {% assign image = product.image %}
-    {% else %}
-      {% assign image = "/assets/images/placeholder.png" %}
-    {% endif %}
-
-    <div class="col-md-2.5 paperbox">
-      <div class="media" style="width:525px; height:250px">
-        <div class="media">
-          <a class="pull-left" href="{{ product.url }}">
-            <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #021a40;">
-          </a>
-          <div class="media-body">
-            <div class="smallhead media-heading">
-              {% if product.tags contains "chapter" %}
-                <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
-              {% elsif product.tags contains "correspondence" %}
-                <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
-              {% else %}
-                <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-              {% endif %}
-            </div>
-            <p>
-              <div class="note">
-                <!-- This took a while, but it links the name of each author from the lab
-                to their page and keeps collaborators' names as strings -->
-                {% assign split_authors = product.authors | split: ", " %}
-                {% for author in split_authors %}
-                    {% assign author_in_lab = false %}
-                    {% for member in site.categories.team %}
-                        {% for science_name in member.science_names %}
-                            {% if author == science_name %}
-                                {% assign author_in_lab = true %}
-                                <a class="off" href="{{ member.url }}">{{ science_name }}</a>,
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                    {% for collab in site.data.collaborators %}
-                        {% if author == collab.science_name %}
-                            {% assign author_in_lab = true %}
-                            <a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
-                        {% endif %}
-                    {% endfor %}
-                    {% if author_in_lab == false %}
-                        {{ author }},
-                    {% endif %}
-                {% endfor %}
-                <span class="journal">
-                  {{ product.journal }}
-                </span>
-                {% if product.volume %}
-                  {{ product.volume }}
-                {% endif %}
-                {% if product.issue %}
-                  ({{ product.issue }})
-                {% endif %}
-                {% if product.pages %}
-                  :{{ product.pages }}
-                {% endif %}
-                ({{ product.year }}).
-              </div>
-            </p>
+<section style="margin-bottom:48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">In Press</h2>
+    <span class="paper-tag">{{ n_in_press }}</span>
+  </div>
+  <div class="paper-grid">
+    {% for product in in_press %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
+    <div class="paper-card reveal">
+      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+        {% if image != "" %}
+          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+        {% else %}
+          <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
+            <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
           </div>
+        {% endif %}
+      </a>
+      <div class="paper-card-body">
+        <span class="paper-tag" style="background:rgba(52,199,89,0.12);color:#1B7A32;">In Press</span>
+        <div class="paper-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+        </div>
+        <div class="paper-card-authors">
+          {% assign split_authors = product.authors | split: ", " %}
+          {% for author in split_authors %}
+            {% assign author_in_lab = false %}
+            {% for member in site.categories.team %}
+              {% for science_name in member.science_names %}
+                {% if author == science_name %}
+                  {% assign author_in_lab = true %}
+                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            {% if author_in_lab == false %}{{ author }},{% endif %}
+          {% endfor %}
+        </div>
+        <div class="paper-card-journal">
+          <span class="journal">{{ product.journal }}</span>
+          {% if product.volume %} {{ product.volume }}{% endif %}
+          {% if product.issue %}({{ product.issue }}){% endif %}
+          {% if product.pages %}:{{ product.pages }}{% endif %}
+          ({{ product.year }})
         </div>
       </div>
     </div>
-    <div class="smallspacer"></div>
-  {% endtablerow %}
-</table>
-
-{% if n_in_press > 0 %}
-  <hr/>
+    {% endfor %}
+  </div>
+</section>
+<hr class="apple-divider">
 {% endif %}
 
+<!-- ---- Published (by year) ---- -->
 {% assign years = "" | split: "" %}
 {% for product in other %}
   {% assign years = years | push: product.year %}
@@ -203,90 +166,73 @@ navorder: 3
 {% assign years = years | uniq %}
 
 {% for year in years %}
-	<div class="title text-center">{{ year }}</div>
-	<div class="bigspacer"></div>
-	{% assign year_products = "" | split: "" %}
-	{% for product in other %}
-		{% if product.year == year %}
-		  {% assign year_products = year_products | push: product %}
-		{% endif %}
-	{% endfor %}
+<section style="margin-bottom:48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">{{ year }}</h2>
+    {% assign year_products = "" | split: "" %}
+    {% for product in other %}
+      {% if product.year == year %}
+        {% assign year_products = year_products | push: product %}
+      {% endif %}
+    {% endfor %}
+    <span class="paper-tag">{{ year_products | size }}</span>
+  </div>
 
-	<table align="center"; width=1250px>
-		{% tablerow product in year_products cols:2 %}
-			{% if product.image %}
-			  {% assign image = product.image %}
-			{% else %}
-			  {% assign image = "/assets/images/placeholder.png" %}
-			{% endif %}
-
-			<div class="col-md-2.5 paperbox">
-				<div class="media" style="width:525px; height: 250px">
-          <div class="media">
-            <a class="pull-left" href="{{ product.url }}">
-              <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #021a40;">
-            </a>
-            <div class="media-body">
-              <div class="smallhead media-heading">
-                {% if product.tags contains "chapter" %}
-                  <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
-                {% elsif product.tags contains "correspondence" %}
-                  <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
-                {% else %}
-                  <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-                {% endif %}
-              </div>
-        			<p>
-          			<div class="note">
-                  <!-- This took a while, but it links the name of each author from the lab
-                  to their page and keeps collaborators' names as strings -->
-                  {% assign split_authors = product.authors | split: ", " %}
-                  {% for author in split_authors %}
-                      {% assign author_in_lab = false %}
-                      {% for member in site.categories.team %}
-                          {% for science_name in member.science_names %}
-                              {% if author == science_name %}
-                                  {% assign author_in_lab = true %}
-                                  <a class="on" href="{{ member.url }}">{{ science_name }}</a>,
-                              {% endif %}
-                          {% endfor %}
-                      {% endfor %}
-                      {% for collab in site.data.collaborators %}
-                          {% if author == collab.science_name %}
-                              {% assign author_in_lab = true %}
-                              <a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
-                          {% endif %}
-                      {% endfor %}
-                      {% if author_in_lab == false %}
-                          {{ author }},
-                      {% endif %}
-                  {% endfor %}
-          				<span class="journal">
-          				  {{ product.journal }}
-          				</span>
-          				{% if product.volume %}
-          				  {{ product.volume }}
-          				{% endif %}
-          				{% if product.issue %}
-          				  ({{ product.issue }})
-          				{% endif %}
-          				{% if product.pages %}
-          				  :{{ product.pages }}
-          				{% endif %}
-          				({{ product.year }}).
-          		  </div>
-              </p>
-            </div>
+  <div class="paper-grid">
+    {% for product in year_products %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
+    <div class="paper-card reveal">
+      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+        {% if image != "" %}
+          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+        {% else %}
+          <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
+            <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
           </div>
-				</div>
-			</div>
-			<div class="smallspacer"></div>
-		{% endtablerow %}
-	</table>
-
-	<div class="bigspacer"></div>
-
-	{% if year != years[-1] %}
-		<hr/>
-	{% endif %}
+        {% endif %}
+      </a>
+      <div class="paper-card-body">
+        {% if product.tags contains "chapter" %}
+          <span class="paper-tag">Chapter</span>
+        {% elsif product.tags contains "correspondence" %}
+          <span class="paper-tag">Correspondence</span>
+        {% endif %}
+        <div class="paper-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+        </div>
+        <div class="paper-card-authors">
+          {% assign split_authors = product.authors | split: ", " %}
+          {% for author in split_authors %}
+            {% assign author_in_lab = false %}
+            {% for member in site.categories.team %}
+              {% for science_name in member.science_names %}
+                {% if author == science_name %}
+                  {% assign author_in_lab = true %}
+                  <a class="on" href="{{ member.url }}">{{ science_name }}</a>,
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            {% for collab in site.data.collaborators %}
+              {% if author == collab.science_name %}
+                {% assign author_in_lab = true %}
+                <a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
+              {% endif %}
+            {% endfor %}
+            {% if author_in_lab == false %}{{ author }},{% endif %}
+          {% endfor %}
+        </div>
+        <div class="paper-card-journal">
+          <span class="journal">{{ product.journal }}</span>
+          {% if product.volume %} {{ product.volume }}{% endif %}
+          {% if product.issue %}({{ product.issue }}){% endif %}
+          {% if product.pages %}:{{ product.pages }}{% endif %}
+          ({{ product.year }})
+        </div>
+        <div class="paper-card-date">{{ product.date | date_to_string }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% unless year == years.last %}<hr class="apple-divider">{% endunless %}
 {% endfor %}

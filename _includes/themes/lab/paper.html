@@ -1,289 +1,229 @@
 <!--
-Branched from Trevor Bedford's source, https://github.com/blab/blotter/blob/master/_layouts/paper.html
-with gratitude.
+Paper detail page — Apple-style redesign
 -->
 
 {% if page.image %}
-	{% assign image = page.image %}
+  {% assign image = page.image %}
 {% else %}
-	{% assign image = "/assets/images/placeholder.png" %}
+  {% assign image = "/assets/images/placeholder.png" %}
 {% endif %}
 
-<div class="bigspacer"></div>
+<div style="padding-top: 32px;"></div>
 
-<div class="row">
-	<div class="col-md-3">
-		<div class="media">
-			<img class="pull-left pad-right media-object paper-image" src="{{ image }}" style="border:1px solid #021a40;">
-		</div>
-		<div class="bigspacer"></div>
+<!-- ======================================================
+     PAPER HEADER
+     ====================================================== -->
+<div class="reveal" style="
+  background: #F5F5F7;
+  border-radius: 20px;
+  padding: 40px 48px;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+">
+  <!-- Cover image -->
+  <div style="flex-shrink:0;">
+    <img src="{{ image }}" alt="{{ page.title }}" style="
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    ">
+  </div>
 
-		<div class="glyphbox note">
-			{% if page.pdflink or page.pdf or page.fulltext or page.pmcid or page.supplement or page.preprint %}
-				<div class="smallhead subtle">
-					Full text
-				</div>
-				<div class="pad-left note">
-					<div class="smallspacer"></div>
-					{% if page.pdflink %}
-						<i class="fa fa-file-pdf-o fa-fw"></i>
-						<a class="off" href="{{ page.pdflink }}">Journal PDF</a>
-						<div class="smallspacer"></div>
-					{% elsif page.pdf %}
-						<i class="fa fa-file-pdf-o fa-fw"></i>
-						<a class="off" href="{{ page.pdf }}">PDF</a>
-						<div class="smallspacer"></div>
-					{% endif %}
+  <!-- Header text -->
+  <div style="flex:1;min-width:0;">
+    {% if page.tags contains "preprint" and page.is_published == false %}
+      <span class="paper-tag">Preprint</span>
+    {% elsif page.tags contains "chapter" %}
+      <span class="paper-tag">Chapter</span>
+    {% elsif page.tags contains "correspondence" %}
+      <span class="paper-tag">Correspondence</span>
+    {% endif %}
 
-					{% if page.fulltext %}
-						<i class="fa fa-external-link fa-fw"></i>
-						<a class="off" href="{{ page.fulltext }}">Journal HTML</a>
-						<div class="smallspacer"></div>
-					{% elsif page.pmcid %}
-						<i class="ai ai-pubmed ai-fw"></i>
-						<a class="off" href="https://www.ncbi.nlm.nih.gov/pmc/articles/{{ page.pmcid }}">PubMed Central</a>
-						<div class="smallspacer"></div>
-					{% endif %}
+    <h1 style="
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #1D1D1F;
+      line-height: 1.25;
+      margin: 12px 0 16px;
+    ">
+      {% if page.tags contains "preprint" and page.is_published == false %}
+        [PREPRINT] {{ page.title }}
+      {% elsif page.tags contains "chapter" %}
+        [CHAPTER] {{ page.title }}
+      {% elsif page.tags contains "correspondence" %}
+        [CORRESPONDENCE] {{ page.title }}
+      {% else %}
+        {{ page.title }}
+      {% endif %}
+    </h1>
 
-					{% if page.supplement %}
-						<i class="fa fa-paperclip fa-fw"></i>
-						<a class="off" href="{{ page.supplement }}">Supplement</a>
-						<div class="smallspacer"></div>
-					{% endif %}
-
-					{% if page.preprint %}
-						<i class="ai ai-open-access ai-fw"></i>
-						<a class="off" href="{{ page.preprint }}">Preprint</a>
-						<div class="smallspacer"></div>
-					{% endif %}
-				</div>
-				<div class="bigspacer"></div>
-			{% endif %}
-
-			{% if page.pmcid %}
-			{% elsif page.pmid %}
-				<div class="smallhead subtle">
-					PubMed
-				</div>
-				<div class="pad-left note">
-					<div class="smallspacer"></div>
-					<i class="ai ai-pubmed ai-fw"></i>
-					<a class="off" href="http://www.ncbi.nlm.nih.gov/pubmed/{{ page.pmid }}">{{ page.pmid }}</a>
-				</div>
-				<div class="bigspacer"></div>
-			{% endif %}
-
-			{% if page.doi %}
-				<div class="smallhead subtle">
-					DOI
-				</div>
-				<div class="pad-left note">
-					<div class="smallspacer"></div>
-					<i class="ai ai-doi ai-fw"></i>
-					<a class="off" href="http://dx.doi.org/{{ page.doi }}">{{ page.doi }}</a>
-				</div>
-				<div class="bigspacer"></div>
-			{% endif %}
-
-			{% if page.github %}
-				<div class="smallhead subtle">
-					Source Code
-				</div>
-				<div class="pad-left note">
-					<div class="smallspacer"></div>
-					{% for repo in page.github %}
-						<i class="fa fa-github-alt fa-fw"></i>
-						<a class="off" href="{{ repo }}">{{ repo | remove: 'https://github.com/' }}</a>
-						<div class="smallspacer"></div>
-					{% endfor %}
-				</div>
-				<div class="bigspacer"></div>
-			{% endif %}
-
-			{% if page.openneuro or page.neurovault or page.figshare %}
-				<div class="smallhead subtle">
-					Data
-				</div>
-
-				<div class="pad-left note">
-					<div class="smallspacer"></div>
-					{% for dset in page.openneuro %}
-						<i class="fa fa-database fa-fw"></i>
-						<a class="off" href="https://openneuro.org/datasets/{{ dset }}">OpenNeuro: {{ dset }}</a>
-						<div class="smallspacer"></div>
-					{% endfor %}
-
-					{% for coll in page.neurovault %}
-						<i class="fa fa-database fa-fw"></i>
-						<a class="off" href="https://identifiers.org/neurovault.collection:{{ coll }}">NeuroVault: {{ coll }}</a>
-						<div class="smallspacer"></div>
-					{% endfor %}
-
-					{% for coll in page.figshare %}
-						<i class="ai ai-figshare ai-fw"></i>
-						<a class="off" href="{{ coll }}">figshare</a>
-						<div class="smallspacer"></div>
-					{% endfor %}
-				</div>
-				<div class="bigspacer"></div>
-			{% endif %}
-
-			{% if page.projects %}
-        <div class="smallhead subtle">
-          Projects
-        </div>
-        {% for project in site.categories.projects %}
-          {% if page.projects contains project.handle %}
-            <div class="pad-left note">
-              <div class="smallspacer"></div>
-							<i class="fa fa-cube fa-fw"></i>
-              <a href="{{ project.url }}" class="off">{{ project.handle }}</a>
-            </div>
+    <!-- Authors -->
+    <div style="font-size:0.9rem;color:#424245;line-height:1.6;margin-bottom:12px;">
+      {% assign split_authors = page.authors | split: ", " %}
+      {% for author in split_authors %}
+        {% assign author_in_lab = false %}
+        {% for member in site.categories.team %}
+          {% for science_name in member.science_names %}
+            {% if author == science_name %}
+              {% assign author_in_lab = true %}
+              <a style="color:#0071E3;font-weight:600;" href="{{ member.url }}">{{ science_name }}</a>,
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for collab in site.data.collaborators %}
+          {% if author == collab.science_name %}
+            {% assign author_in_lab = true %}
+            <a style="color:#0071E3;" href="{{ collab.url }}">{{ collab.science_name }}</a>,
           {% endif %}
         {% endfor %}
-        {% for project in site.categories.software %}
-          {% if page.projects contains project.handle %}
-            <div class="pad-left note">
-              <div class="smallspacer"></div>
-							<i class="fa fa-cube fa-fw"></i>
-              <a href="{{ project.url }}" class="off">{{ project.handle }}</a>
-            </div>
-          {% endif %}
-        {% endfor %}
-        <div class="bigspacer"></div>
-      {% endif %}
+        {% if author_in_lab == false %}{{ author }},{% endif %}
+      {% endfor %}
+    </div>
 
-      {% if page.osf %}
-        <div class="smallhead subtle">
-          Additional Resources
-        </div>
-        <div class="pad-left note">
-          <div class="smallspacer"></div>
-          <i class="ai ai-osf ai-fw"></i>
-          <a class="off" href="{{ page.osf }}">Open Science Framework</a>
-        </div>
-        <div class="bigspacer"></div>
-      {% endif %}
+    <!-- Citation -->
+    <div style="font-size:0.875rem;color:#6E6E73;font-style:italic;">
+      {{ page.journal }}
+      {% if page.volume %} {{ page.volume }}{% endif %}
+      {% if page.issue %}({{ page.issue }}){% endif %}
+      {% if page.pages %}:{{ page.pages }}{% endif %}
+      ({{ page.year }})
+    </div>
+  </div>
 
-			<div class="smallhead subtle">
-				Share
-			</div>
-			<div class="pad-left note">
-	    	<!-- Paste the 3 next lines where you want the sharing button(s) to appear -->
-		    <div class="post-sharing">
-		     {% include JB/sharing %}
-		    </div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-9">
-		<div class="media-body titlebox">
-			{% if page.doi %}
-				<!-- a small section for the almetric badge if one is available -->
-				<div class="col-md-2.5" style="float:right">
-				  <div data-badge-type="large-donut" data-doi="{{ page.doi }}" data-hide-no-mentions="true" class="altmetric-embed" data-badge-popover='left' style="float:right;clear:both">
-				</div>
-			{% else %}
-				<div class="col-md-2.5" style="float:right">
-					<div data-badge-type="large-donut" data-doi="" data-hide-no-mentions="true" class="altmetric-embed" data-badge-popover='left' style="float:right;clear:both">
-				</div>
-			{% endif %}
-		  </div>
-			<div class="title media-heading">
-				{% if page.tags contains "preprint" and page.is_published == false %}
-				  [PREPRINT] {{ page.title }}
-				{% elsif page.tags contains "chapter" %}
-				  [CHAPTER] {{ page.title }}
-				{% elsif page.tags contains "correspondence" %}
-					[CORRESPONDENCE] {{ page.title }}
-				{% else %}
-				  {{ page.title }}
-				{% endif %}
-			</div>
-
-			<!-- An automatically compiled reference -->
-			<p>
-			<div class="smallhead">
-				<!-- This took a while, but it links the name of each author from the lab
-				to their page and keeps collaborators' names as strings -->
-				{% assign split_authors = page.authors | split: ", " %}
-				{% for author in split_authors %}
-				    {% assign author_in_lab = false %}
-				    {% for member in site.categories.team %}
-								{% for science_name in member.science_names %}
-										{% if author == science_name %}
-    										{% assign author_in_lab = true %}
-						        		<a class="on" href="{{ member.url }}">{{ science_name }}</a>,
-						    		{% endif %}
-								{% endfor %}
-				    {% endfor %}
-						{% for collab in site.data.collaborators %}
-								{% if author == collab.science_name %}
-										{% assign author_in_lab = true %}
-										<a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
-								{% endif %}
-						{% endfor %}
-					  {% if author_in_lab == false %}
-					      {{ author }},
-					  {% endif %}
-				{% endfor %}
-				<span class="journal">
-				  {{ page.journal }}
-				</span>
-				{% if page.volume %}
-				 {{ page.volume }}
-				{% endif %}
-				{% if page.issue %}
-				  ({{ page.issue }})
-				{% endif %}
-				{% if page.pages %}
-				  :{{ page.pages }}
-				{% endif %}
-				({{ page.year }}).
-			</div>
-		</div>
-		<hr/>
-		<div class="post">
-			{{ content }}
-		</div>
-		<hr/>
-		<div class="smallspacer"></div>
-		{% for map in page.maps %}
-			<div class="col-md-2.5 paperbox">
-				{{map}}
-				<div id="NeuroVaultPapayaHolder"><script src="http://neurovault.org/images/{{ map }}/js/embed" type="text/javascript" charset="utf-8"></script></div>
-				<br/>hi<br/>
-			</div>
-		{% endfor %}
-
-		<!-- comment out unless we want the categories and tags
-		{% unless page.categories == empty %}
-    <ul class="tag_box inline">
-      <li><i class="glyphicon glyphicon-open"></i></li>
-      {% assign categories_list = page.categories %}
-      {% include JB/categories_list %}
-    </ul>
-    {% endunless %}
-
-    {% unless page.tags == empty %}
-    <ul class="tag_box inline">
-      <li><i class="glyphicon glyphicon-tags"></i></li>
-      {% assign tags_list = page.tags %}
-      {% include JB/tags_list %}
-    </ul>
-    {% endunless %}
-
-    <hr>
-    {% include JB/comments %}
-		-->
-	</div>
+  <!-- Altmetric badge -->
+  {% if page.doi %}
+  <div style="flex-shrink:0;">
+    <div data-badge-type="donut" data-doi="{{ page.doi }}" data-hide-no-mentions="true" class="altmetric-embed" data-badge-popover="left"></div>
+  </div>
+  {% endif %}
 </div>
 
-<div class="bigspacer"></div>
+<!-- ======================================================
+     CONTENT + SIDEBAR
+     ====================================================== -->
+<div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
 
-<!-- script for altmetric badges and js -->
-<script src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <!-- ---- SIDEBAR ---- -->
+  <aside style="
+    flex-shrink: 0;
+    width: 220px;
+    position: sticky;
+    top: 70px;
+  " class="reveal">
+    <div style="
+      background: #F5F5F7;
+      border-radius: 16px;
+      padding: 24px 20px;
+      font-size: 0.85rem;
+    ">
+
+      <!-- Full text links -->
+      {% if page.pdflink or page.pdf or page.fulltext or page.pmcid or page.preprint %}
+      <div style="margin-bottom:20px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#86868B;margin-bottom:10px;">Full Text</div>
+        {% if page.pdflink %}
+          <a href="{{ page.pdflink }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;transition:all 0.2s;">
+            <i class="fa fa-file-pdf-o" style="color:#FF3B30;"></i> Journal PDF
+          </a>
+        {% elsif page.pdf %}
+          <a href="{{ page.pdf }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;">
+            <i class="fa fa-file-pdf-o" style="color:#FF3B30;"></i> PDF
+          </a>
+        {% endif %}
+        {% if page.fulltext %}
+          <a href="{{ page.fulltext }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;">
+            <i class="fa fa-external-link" style="color:#0071E3;"></i> Journal HTML
+          </a>
+        {% elsif page.pmcid %}
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/{{ page.pmcid }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;">
+            <i class="ai ai-pubmed" style="color:#E86800;"></i> PubMed Central
+          </a>
+        {% endif %}
+        {% if page.preprint %}
+          <a href="{{ page.preprint }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;">
+            <i class="ai ai-open-access" style="color:#34C759;"></i> Preprint
+          </a>
+        {% endif %}
+        {% if page.supplement %}
+          <a href="{{ page.supplement }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.82rem;color:#1D1D1F;">
+            <i class="fa fa-paperclip" style="color:#8E8E93;"></i> Supplement
+          </a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Identifiers -->
+      {% if page.doi or page.pmid %}
+      <div style="margin-bottom:20px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#86868B;margin-bottom:10px;">Identifiers</div>
+        {% if page.doi %}
+          <div style="margin-bottom:6px;">
+            <span style="font-size:0.7rem;color:#86868B;">DOI</span><br>
+            <a href="http://dx.doi.org/{{ page.doi }}" class="off" style="font-size:0.78rem;color:#0071E3;word-break:break-all;">{{ page.doi }}</a>
+          </div>
+        {% endif %}
+        {% if page.pmid %}
+          <div>
+            <span style="font-size:0.7rem;color:#86868B;">PubMed</span><br>
+            <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ page.pmid }}" class="off" style="font-size:0.78rem;color:#0071E3;">{{ page.pmid }}</a>
+          </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Source code -->
+      {% if page.github %}
+      <div style="margin-bottom:20px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#86868B;margin-bottom:10px;">Source Code</div>
+        {% for repo in page.github %}
+          <a href="{{ repo }}" class="off" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.08);margin-bottom:8px;font-size:0.78rem;color:#1D1D1F;word-break:break-all;">
+            <i class="fa fa-github" style="color:#1D1D1F;flex-shrink:0;"></i>
+            {{ repo | remove: 'https://github.com/' }}
+          </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Projects -->
+      {% if page.projects %}
+      <div style="margin-bottom:20px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#86868B;margin-bottom:10px;">Projects</div>
+        {% for project in site.categories.projects %}
+          {% if page.projects contains project.handle %}
+            <a href="{{ project.url }}" class="off" style="display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:0.82rem;color:#0071E3;border-radius:8px;background:rgba(0,113,227,0.07);margin-bottom:6px;">
+              <i class="fa fa-cube"></i> {{ project.handle }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Share -->
+      <div>
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#86868B;margin-bottom:10px;">Share</div>
+        <div class="post-sharing">{% include JB/sharing %}</div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ---- MAIN CONTENT ---- -->
+  <div style="flex:1;min-width:0;" class="reveal">
+    <div class="post" style="font-size:0.95rem;line-height:1.75;color:#424245;">
+      {{ content }}
+    </div>
+  </div>
+
+</div>
+
+<div style="height:48px;"></div>
+
+<!-- Altmetric script -->
+<script src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
