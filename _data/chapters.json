@@ -1,0 +1,26 @@
+﻿[
+  {
+    "folder": "paper01",
+    "title": "健康人群皮肤微生物群落结构研究",
+    "html": "/papers/skin-microbiome-structure. html",
+    "text": "/texts/paper01.txt",
+    "image": "/gallery/paper01.svg",
+    "category": "基础研究"
+  },
+  {
+    "folder": "paper02",
+    "title":  "痤疮患者皮肤微生物组特征分析",
+    "html": "/papers/acne-microbiome. html",
+    "text": "/texts/paper02.txt",
+    "image": "/gallery/paper02.svg",
+    "category": "临床研究"
+  },
+  {
+    "folder": "paper03",
+    "title": "抗菌肽在皮肤免疫中的作用机制",
+    "html": "/papers/antimicrobial-peptides.html",
+    "text": "/texts/paper03.txt",
+    "image": "/gallery/paper03.svg",
+    "category": "机制研究"
+  }
+]

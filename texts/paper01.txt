@@ -1,0 +1,17 @@
+﻿健康人群皮肤微生物群落结构研究
+
+本研究采用16S rRNA高通量测序技术，系统分析了100名健康志愿者不同身体部位的皮肤微生物群落组成。研究发现，皮肤微生物组呈现明显的部位特异性特征。
+
+研究方法：
+- 样本采集：前额、面颊、前臂、腿部等8个身体部位
+- DNA提取：MoBio PowerSoil DNA Isolation Kit
+- 测序平台：Illumina MiSeq PE300
+- 生物信息学分析：QIIME2 pipeline
+
+主要发现：
+1. 油性区域（如前额）以Cutibacterium属为主要优势菌
+2. 湿润区域（如腋窝）以Corynebacterium和Staphylococcus为主
+3. 干燥区域（如前臂）微生物多样性最高
+4. 个体间微生物组成存在差异，但部位特异性模式保持一致
+
+关键词：皮肤微生物组、16S rRNA测序、群落结构、部位特异性、Cutibacterium、Staphylococcus、微生物多样性

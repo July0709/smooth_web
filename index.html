@@ -26,7 +26,6 @@ categories:
 	    <li data-target="#carousel" data-slide-to="2"></li>
 	  </ol>
 	  <!-- Carousel items -->
-	  <!-- See https://bootsnipp.com/tags/carousel for possible approaches -->
 	  <div class="carousel-inner">
 	    <div class="active item">
 	    	<img src="/assets/images/banners/Picture1b.png" width='1200px' alt="">
@@ -60,19 +59,27 @@ categories:
 		</div>
 	</div>
 </div>
-
 <div class="hugespacer"></div>
 
+<div class="bigspacer"></div>
+<div class="title text-center">Recent Papers</div>
+<div class="smallspacer"></div>
+
+{% comment %}
+  将 Recent Papers 合并为单列显示。
+  目前设置：按日期降序排列 recent 列表，并显示 limit:10（最近 10 篇）。
+  如需改变显示数量或显示全部，请修改下面循环中的 limit:n（或移除 limit）。
+{% endcomment %}
+
+{% assign recent = site.categories.papers | sort: 'date' | reverse %}
+
 <div class="row">
-	<div class="col-md-4">
-		<div class="head">
-			<a class="off" href="/papers/">Recent Papers</a>
-		</div>
-		<div class="bigspacer"></div>
+  <div class="col-md-12">
+    <div class="bigspacer"></div>
     <div class="feedbox">
-			{% for product in site.categories.papers limit: 3 %}
-				<div class="note-title">
-					<i class="fa fa-file-text-o fa-fw"></i>
+      {% for product in recent limit:10 %}
+        <div class="note-title">
+          <i class="fa fa-file-text-o fa-fw"></i>
           {% if product.tags contains "preprint" and product.is_published == false %}
               <a href="{{ product.url }}" class="off">[PREPRINT] {{ product.title }}</a>
           {% elsif product.tags contains "chapter" %}
@@ -82,10 +89,8 @@ categories:
           {% else %}
               <a href="{{ product.url }}" class="off">{{ product.title }}</a>
           {% endif %}
-					<br/>
+          <br/>
           <div class="note">
-            <!-- This took a while, but it links the name of each author from the lab
-            to their page and keeps collaborators' names as strings -->
             {% assign split_authors = product.authors | split: ", " %}
             {% for author in split_authors %}
                 {% assign author_in_lab = false %}
@@ -121,76 +126,17 @@ categories:
             {% endif %}
             ({{ product.year }}).
           </div>
-				</div>
-				<div class="smallspacer"></div>
-				<div class="smallnote">
-					Published
-					{{ product.date | date_to_string }}
-				</div>
-				<div class="spacer"></div>
-				<div class="spacer"></div>
-			{% endfor %}
-		</div>
-		<div class="bigspacer"></div>
-	</div>
-
-  <div class="col-md-4">
-    <div class="head">
-      <a class="off" href="/projects/">Projects</a>
-    </div>
-    <div class="bigspacer"></div>
-    <div class="feedbox">
-      {% for project in site.categories.projects limit: 6 %}
-        <div class="note-title">
-          <i class="fa fa-database fa-fw"></i>
-          <a class="off" href="{{ project.url }}">{{ project.title }}</a>
-          <br/>
         </div>
-        {{ project.tagline }}
-        <br/>
+
         <div class="smallspacer"></div>
         <div class="smallnote">
-					{{ project.excerpt }}
-				</div>
+          Published {{ product.date | date_to_string }}
+        </div>
         <div class="spacer"></div>
       {% endfor %}
     </div>
     <div class="bigspacer"></div>
   </div>
-
-	<div class="col-md-4">
-		<div class="head">
-			<a class="off" href="/news/">News</a>
-		</div>
-		<div class="bigspacer"></div>
-    <div class="feedbox">
-			{% for news in site.categories.news limit:5 %}
-
-				{% for member in site.categories.team %}
-					{% if member.handle == news.author %}
-						{% assign author = member %}
-					{% endif %}
-				{% endfor %}
-
-				<div class="note-title">
-					<i class="fa fa-bullhorn fa-fw"></i>
-					<a class="off" href="{{ news.url }}">
-					{{ news.title }}
-					</a>
-				</div>
-				<div class="note">
-					{{ news.excerpt | markdownify }}
-				</div>
-				<div class="smallnote">
-					Posted
-					{{ news.date | date_to_string }}
-				</div>
-				<div class="spacer"></div>
-				<div class="spacer"></div>
-			{% endfor %}
-		</div>
-		<div class="bigspacer"></div>
-	</div>
 </div>
 
 <div class="bigspacer"></div>
