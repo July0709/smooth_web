@@ -11,132 +11,211 @@ categories:
 {% endif %}
 {% endfor %}
 
-<div class="bigspacer"></div>
-
-<div class="row">
-	<div class="col-md-12">
-	<!--<div class="carousel-overlay logotitle logobox">
-		{{ homepage.title }}
-	</div>-->
-  <!-- data-interval says how long to spend on each image: 10000 = 10s -->
-	<div id="carousel" class="carousel carousel-fade" data-interval="10000" data-ride="carousel">
-	  <ol class="carousel-indicators">
-	    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-	    <li data-target="#carousel" data-slide-to="1"></li>
-	    <li data-target="#carousel" data-slide-to="2"></li>
-	  </ol>
-	  <!-- Carousel items -->
-	  <div class="carousel-inner">
-	    <div class="active item">
-	    	<img src="/assets/images/banners/Picture1b.png" width='1200px' alt="">
-	    </div>
-	    <div class="item">
-	    	<img src="/assets/images/banners/Picture2b.png" width='1200px' alt="">
-	    </div>
-	    <div class="item">
-	    	<img src="/assets/images/banners/Picture6a.png" width='1200px' alt="">
-	    </div>
-	  </div>
-	  <!-- Carousel nav -->
-	  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-	    <span class="glyphicon glyphicon-chevron-left"></span>
-	    <!-- <span class="sr-only">Previous</span> -->
-	  </a>
-	  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-	    <span class="glyphicon glyphicon-chevron-right"></span>
-	    <!-- <span class="sr-only">Next</span> -->
-	  </a>
-	</div>
-	</div>
-</div>
-
-<div class="hugespacer"></div>
-
-<div class="row">
-	<div class="col-md-12">
-		<div class="smallhead">
-			{{ homepage.content }}
-		</div>
-	</div>
-</div>
-<div class="hugespacer"></div>
-
-<div class="bigspacer"></div>
-<div class="title text-center">Recent Papers</div>
-<div class="smallspacer"></div>
-
-{% comment %}
-  将 Recent Papers 合并为单列显示。
-  目前设置：按日期降序排列 recent 列表，并显示 limit:10（最近 10 篇）。
-  如需改变显示数量或显示全部，请修改下面循环中的 limit:n（或移除 limit）。
-{% endcomment %}
-
-{% assign recent = site.categories.papers | sort: 'date' | reverse %}
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="bigspacer"></div>
-    <div class="feedbox">
-      {% for product in recent limit:10 %}
-        <div class="note-title">
-          <i class="fa fa-file-text-o fa-fw"></i>
-          {% if product.tags contains "preprint" and product.is_published == false %}
-              <a href="{{ product.url }}" class="off">[PREPRINT] {{ product.title }}</a>
-          {% elsif product.tags contains "chapter" %}
-              <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
-          {% elsif product.tags contains "correspondence" %}
-              <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
-          {% else %}
-              <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-          {% endif %}
-          <br/>
-          <div class="note">
-            {% assign split_authors = product.authors | split: ", " %}
-            {% for author in split_authors %}
-                {% assign author_in_lab = false %}
-                {% for member in site.categories.team %}
-                    {% for science_name in member.science_names %}
-                        {% if author == science_name %}
-                            {% assign author_in_lab = true %}
-                            <a class="off" href="{{ member.url }}">{{ science_name }}</a>,
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-                {% for collab in site.data.collaborators %}
-                    {% if author == collab.science_name %}
-                        {% assign author_in_lab = true %}
-                        <a href="{{ collab.url }}">{{ collab.science_name }}</a>,
-                    {% endif %}
-                {% endfor %}
-                {% if author_in_lab == false %}
-                    {{ author }},
-                {% endif %}
-            {% endfor %}
-            <span class="journal">
-              {{ product.journal }}
-            </span>
-            {% if product.volume %}
-              {{ product.volume }}
-            {% endif %}
-            {% if product.issue %}
-              ({{ product.issue }})
-            {% endif %}
-            {% if product.pages %}
-              :{{ product.pages }}
-            {% endif %}
-            ({{ product.year }}).
-          </div>
-        </div>
-
-        <div class="smallspacer"></div>
-        <div class="smallnote">
-          Published {{ product.date | date_to_string }}
-        </div>
-        <div class="spacer"></div>
-      {% endfor %}
+<!-- ======================================================
+     HERO CAROUSEL SECTION
+     ====================================================== -->
+<div class="apple-hero-carousel reveal" style="margin: 0 -24px 0; position: relative; overflow: hidden; border-radius: 0 0 var(--apple-radius-xl, 28px) var(--apple-radius-xl, 28px);">
+  <div id="carousel" class="carousel carousel-fade" data-interval="8000" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel" data-slide-to="1"></li>
+      <li data-target="#carousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="active item">
+        <img src="/assets/images/banners/Picture1b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+      </div>
+      <div class="item">
+        <img src="/assets/images/banners/Picture2b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+      </div>
+      <div class="item">
+        <img src="/assets/images/banners/Picture6a.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+      </div>
     </div>
-    <div class="bigspacer"></div>
+    <!-- Carousel nav -->
+    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
   </div>
 </div>
 
-<div class="bigspacer"></div>
+<!-- ======================================================
+     LAB INTRO SECTION
+     ====================================================== -->
+<section style="padding: 64px 0 48px; text-align: center;">
+  <div class="reveal">
+    <span class="apple-section-label">Southern Medical University</span>
+    <h1 class="apple-section-title" style="margin-top:8px;">Skin &amp; Mucosal Microbiomics<br>Optimizing Total Health</h1>
+    <p class="apple-section-sub" style="max-width:580px;margin:0 auto 32px;">
+      The SMOOTH Lab investigates the intricate relationships between microbial communities and skin health, developing novel therapies to improve patient outcomes.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/projects/" class="apple-btn apple-btn-primary">Our Research</a>
+      <a href="/papers/" class="apple-btn apple-btn-secondary">Publications</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     HOMEPAGE CONTENT
+     ====================================================== -->
+{% if homepage.content %}
+<section class="reveal" style="
+  background: #F5F5F7;
+  border-radius: var(--apple-radius-xl, 28px);
+  padding: 40px 48px;
+  margin-bottom: 64px;
+">
+  <div class="smallhead" style="font-size:1rem;line-height:1.7;color:#424245;">
+    {{ homepage.content }}
+  </div>
+</section>
+{% endif %}
+
+<!-- ======================================================
+     STATS ROW (floating cards)
+     ====================================================== -->
+<section class="reveal" style="margin-bottom: 64px;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
+    <div class="apple-card" style="padding:28px 20px;text-align:center;">
+      <div style="font-size:2.2rem;font-weight:700;color:#0071E3;letter-spacing:-0.04em;line-height:1;">
+        {% assign paper_count = site.categories.papers | size %}{{ paper_count }}+
+      </div>
+      <div style="font-size:0.82rem;color:#86868B;margin-top:6px;font-weight:500;">Publications</div>
+    </div>
+    <div class="apple-card" style="padding:28px 20px;text-align:center;">
+      <div style="font-size:2.2rem;font-weight:700;color:#0071E3;letter-spacing:-0.04em;line-height:1;">
+        {% assign team_count = site.categories.team | size %}{{ team_count }}+
+      </div>
+      <div style="font-size:0.82rem;color:#86868B;margin-top:6px;font-weight:500;">Team Members</div>
+    </div>
+    <div class="apple-card" style="padding:28px 20px;text-align:center;">
+      <div style="font-size:2.2rem;font-weight:700;color:#0071E3;letter-spacing:-0.04em;line-height:1;">
+        {% assign proj_count = site.categories.projects | size %}{{ proj_count }}+
+      </div>
+      <div style="font-size:0.82rem;color:#86868B;margin-top:6px;font-weight:500;">Projects</div>
+    </div>
+    <div class="apple-card" style="padding:28px 20px;text-align:center;">
+      <div style="font-size:2.2rem;font-weight:700;color:#0071E3;letter-spacing:-0.04em;line-height:1;">2023+</div>
+      <div style="font-size:0.82rem;color:#86868B;margin-top:6px;font-weight:500;">Since</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     RECENT PAPERS
+     ====================================================== -->
+<section style="margin-bottom: 64px;">
+  <div class="section-header reveal">
+    <span class="apple-section-label">Latest Work</span>
+    <h2 class="apple-section-title" style="margin-top:8px;">Recent Papers</h2>
+    <p class="apple-section-sub">Selected publications from our research team</p>
+  </div>
+
+  {% assign recent = site.categories.papers | sort: 'date' | reverse %}
+
+  <div class="paper-grid">
+    {% for product in recent limit:10 %}
+    <div class="paper-card reveal reveal-delay-{{ forloop.index | modulo: 3 | plus: 1 }}">
+      <!-- Paper image -->
+      <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+        {% if product.image %}
+          <img class="paper-card-img" src="{{ product.image }}" alt="{{ product.title }}">
+        {% else %}
+          <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;">
+            <i class="fa fa-file-text-o" style="font-size:24px;color:#C7C7CC;"></i>
+          </div>
+        {% endif %}
+      </a>
+      <div class="paper-card-body">
+        <!-- Tags -->
+        {% if product.tags contains "preprint" and product.is_published == false %}
+          <span class="paper-tag">Preprint</span>
+        {% elsif product.tags contains "chapter" %}
+          <span class="paper-tag">Chapter</span>
+        {% elsif product.tags contains "correspondence" %}
+          <span class="paper-tag">Correspondence</span>
+        {% endif %}
+        <!-- Title -->
+        <div class="paper-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+        </div>
+        <!-- Authors -->
+        <div class="paper-card-authors">
+          {% assign split_authors = product.authors | split: ", " %}
+          {% for author in split_authors limit:4 %}
+            {% assign author_in_lab = false %}
+            {% for member in site.categories.team %}
+              {% for science_name in member.science_names %}
+                {% if author == science_name %}
+                  {% assign author_in_lab = true %}
+                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            {% if author_in_lab == false %}{{ author }}{% unless forloop.last %},{% endunless %}{% endif %}
+          {% endfor %}
+          {% if split_authors.size > 4 %} <em>et al.</em>{% endif %}
+        </div>
+        <!-- Journal -->
+        <div class="paper-card-journal">
+          <span class="journal">{{ product.journal }}</span>
+          {% if product.volume %} {{ product.volume }}{% endif %}
+          {% if product.issue %}({{ product.issue }}){% endif %}
+          {% if product.pages %}:{{ product.pages }}{% endif %}
+          ({{ product.year }})
+        </div>
+        <!-- Date -->
+        <div class="paper-card-date">{{ product.date | date_to_string }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div style="text-align:center;margin-top:16px;" class="reveal">
+    <a href="/papers/" class="apple-btn apple-btn-secondary">View All Publications →</a>
+  </div>
+</section>
+
+<!-- ======================================================
+     RESEARCH SPOTLIGHT (floating feature cards)
+     ====================================================== -->
+<section style="margin-bottom: 64px;">
+  <div class="section-header reveal">
+    <span class="apple-section-label">What We Do</span>
+    <h2 class="apple-section-title" style="margin-top:8px;">Research Focus</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+    <div class="apple-card reveal reveal-delay-1" style="padding:32px 28px;">
+      <div style="width:44px;height:44px;background:rgba(0,113,227,0.10);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <i class="fa fa-flask" style="font-size:20px;color:#0071E3;"></i>
+      </div>
+      <h3 style="font-size:1rem;font-weight:700;color:#1D1D1F;margin-bottom:10px;">Skin Microbiome</h3>
+      <p style="font-size:0.875rem;color:#6E6E73;line-height:1.6;margin:0;">
+        Characterizing microbial community structures in healthy and diseased skin to identify key biomarkers.
+      </p>
+    </div>
+    <div class="apple-card reveal reveal-delay-2" style="padding:32px 28px;">
+      <div style="width:44px;height:44px;background:rgba(52,199,89,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <i class="fa fa-dna" style="font-size:20px;color:#34C759;" aria-hidden="true"></i>
+        <i class="fa fa-code-fork" style="font-size:20px;color:#1B7A32;" aria-hidden="true"></i>
+      </div>
+      <h3 style="font-size:1rem;font-weight:700;color:#1D1D1F;margin-bottom:10px;">Immune Mechanisms</h3>
+      <p style="font-size:0.875rem;color:#6E6E73;line-height:1.6;margin:0;">
+        Investigating how skin bacteria modulate immune cell development and antimicrobial responses.
+      </p>
+    </div>
+    <div class="apple-card reveal reveal-delay-3" style="padding:32px 28px;">
+      <div style="width:44px;height:44px;background:rgba(255,149,0,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <i class="fa fa-medkit" style="font-size:20px;color:#E86800;"></i>
+      </div>
+      <h3 style="font-size:1rem;font-weight:700;color:#1D1D1F;margin-bottom:10px;">Therapeutic Translation</h3>
+      <p style="font-size:0.875rem;color:#6E6E73;line-height:1.6;margin:0;">
+        Translating microbiome discoveries into novel treatments for skin conditions including acne and wound healing.
+      </p>
+    </div>
+  </div>
+</section>

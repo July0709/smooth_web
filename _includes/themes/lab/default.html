@@ -3,158 +3,249 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <title>{{ page.title }}</title>
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
     <meta name="author" content="{{ site.author.name }}">
-
-    <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Bootstrap styles -->
+    <!-- Bootstrap (keep for JS components) -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Optional theme -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <!-- Sticky Footer -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bs-sticky-footer.css" rel="stylesheet"/>
 
-    <!-- Custom styles -->
+    <!-- Apple-style custom stylesheet -->
     <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"/>
 
-    <!-- icon -->
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="/assets/themes/lab/images/logo/favicon.png"/>
 
-    <!-- Custom fonts and icons via Font Awesome, http://jpswalsh.github.io/academicons/ -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.css"/>
+    <!-- Icons -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
-    <!-- Custom fonts and icons via Academicons, http://fortawesome.github.io/Font-Awesome/ -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- Google Fonts — SF Pro fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-    <!-- Fonts via Google -->
-    <link href='http://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700' rel='stylesheet' type='text/css'/>
-
-    <!-- Math via MathJax -->
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <!-- Update these with your own images
-      <link rel="shortcut icon" href="images/favicon.ico">
-      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
-
-    <!-- atom & rss feed
-    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
-    -->
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     {% seo %}
   </head>
 
   <body>
 
-  <!-- Static top navbar -->
-
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class='container'>
-      <!-- Brand and toggle get grouped for better mobile display -->
+  <!-- ======================================================
+       APPLE-STYLE NAVBAR
+       ====================================================== -->
+  <nav class="navbar navbar-default navbar-fixed-top" id="apple-nav" role="navigation">
+    <div class="container">
+      <!-- Brand -->
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#apple-nav-collapse" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/">
-        <img class="pull-left" src="{{ ASSET_PATH }}/images/logo/logo.png" height=50px>
-        &nbsp;&nbsp;&nbsp;
-        <img class="pull-left" src="{{ ASSET_PATH }}/images/banner/lab-banner.png" height=50px>
+        <a href="/" class="navbar-brand" style="display:flex;align-items:center;gap:10px;padding:0;height:52px;line-height:52px;">
+          <img src="{{ ASSET_PATH }}/images/logo/logo.png" height="32" alt="SMOOTH Lab logo" style="vertical-align:middle;">
+          <span style="font-size:15px;font-weight:600;color:#1D1D1F;letter-spacing:-0.01em;">SMOOTH Lab</span>
         </a>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="jb-navbar-collapse">
-        <ul class="nav navbar-nav navbar-left hidden-sm">
-          <!-- Don't put site title on home page -- there's already a big title there. -->
-          {% assign make_title = false %} <!-- CHANGED TO FALSE BY TS -->
-          {% for pc in page.categories %}
-            {% if pc == "home" %}
-             {% assign make_title = false %}
-            {% endif %}
-          {% endfor %}
-          {% if make_title == true %}
-          <!-- <img class="pull-left logo" src="{{ ASSET_PATH }}/images/banner/lab-banner.png"> -->
-          <a class="navbar-brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
-          {% endif %}
-        </ul>
-        <ul class="nav navbar-nav navbar-right pull-right">
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="apple-nav-collapse">
+        <ul class="nav navbar-nav navbar-right" style="margin-top:0;">
           {% assign pages_list = (site.pages | sort: 'navorder') %}
           {% assign group = 'navigation' %}
           {% include JB/pages_list %}
-          <!-- <li class="dropdown nav navbar-nav">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              More <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu nav navbar-nav" role="menu">
-              {% assign pages_list = (site.pages | sort: 'navorder') %}
-              {% assign group = 'subnavigation' %}
-              {% include JB/pages_list %}
-            </ul>
-          </li> -->
         </ul>
-      </div><!-- /.navbar-collapse -->
-    </nav>
-   </div>
-
-   <!-- Content -->
-   <div class="container">
-      {{ content }}
-   </div>
-
-
-  <!-- Static bottom navbar -->
-  <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-bottom-collapse"> <!-- NOTE! data-target was changed to jb-bottom-collapse -->
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
       </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="jb-bottom-collapse">
-        <ul class="nav navbar-nav navbar-left navbar-small">
-          <li><a href={{ site.department.url }}>{{ site.department.name }}</a></li>
-          <li><a href={{ site.institution.url }}>{{ site.institution.name }}</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right navbar-small">
-          <li><a href='https://drive.google.com/drive/u/0/folders/0B543K-QXbp21WERUMkc5SVhjODg'>For Lab Members</a></li>
-          <li><a href='/about.html#about-the-site'>About the Site</a></li>
-          <li><a href='/contact.html#join'>Join</a></li>
-          <li><a href='/contact.html#contact'>Contact</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
     </div>
   </nav>
 
+  <!-- ======================================================
+       MAIN CONTENT
+       ====================================================== -->
+  <div class="container">
+    {{ content }}
+  </div>
 
+  <!-- ======================================================
+       APPLE-STYLE FOOTER
+       ====================================================== -->
+  <footer class="apple-footer" style="
+    background: #F5F5F7;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 32px 0 60px;
+    margin-top: 60px;
+  ">
+    <div class="container" style="max-width:1200px;">
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;">
+        <!-- Brand block -->
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#1D1D1F;margin-bottom:6px;">SMOOTH Lab</div>
+          <div style="font-size:12px;color:#86868B;line-height:1.6;">
+            <a href="{{ site.department.url }}" style="color:#86868B;">{{ site.department.name }}</a><br>
+            <a href="{{ site.institution.url }}" style="color:#86868B;">{{ site.institution.name }}</a>
+          </div>
+        </div>
+        <!-- Links block -->
+        <div style="display:flex;gap:40px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#1D1D1F;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;">Lab</div>
+            <ul style="list-style:none;margin:0;padding:0;">
+              <li style="margin-bottom:6px;"><a href="/team/" style="font-size:12px;color:#515154;">Team</a></li>
+              <li style="margin-bottom:6px;"><a href="/projects/" style="font-size:12px;color:#515154;">Research</a></li>
+              <li style="margin-bottom:6px;"><a href="/papers/" style="font-size:12px;color:#515154;">Papers</a></li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#1D1D1F;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;">Connect</div>
+            <ul style="list-style:none;margin:0;padding:0;">
+              <li style="margin-bottom:6px;"><a href="/contact.html#join" style="font-size:12px;color:#515154;">Join</a></li>
+              <li style="margin-bottom:6px;"><a href="/contact.html#contact" style="font-size:12px;color:#515154;">Contact</a></li>
+              <li style="margin-bottom:6px;"><a href="/about.html" style="font-size:12px;color:#515154;">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(0,0,0,0.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <p style="font-size:11px;color:#86868B;margin:0;">Copyright &copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Jekyll.</p>
+        <a href="/about.html#about-the-site" style="font-size:11px;color:#86868B;">About this site</a>
+      </div>
+    </div>
+  </footer>
 
-    {% include JB/analytics %}
+  <!-- ======================================================
+       FLOATING ELEMENTS
+       ====================================================== -->
 
+  <!-- Back to top -->
+  <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa fa-chevron-up"></i>
+  </a>
 
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Modal overlay (for floating windows) -->
+  <div class="float-overlay" id="floatOverlay">
+    <div class="float-window" id="floatWindow">
+      <button class="float-window-close" id="floatClose" aria-label="Close">
+        <i class="fa fa-times"></i>
+      </button>
+      <div class="float-window-title" id="floatTitle"></div>
+      <div class="float-window-meta" id="floatMeta"></div>
+      <div class="float-window-body" id="floatBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="apple-toast" id="appleToast"></div>
+
+  <!-- ======================================================
+       SCRIPTS
+       ====================================================== -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    /* ---- Navbar scroll effect ---- */
+    var nav = document.getElementById('apple-nav');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+
+      /* Back-to-top visibility */
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    /* ---- Back to top smooth scroll ---- */
+    var backBtn = document.getElementById('backToTop');
+    if (backBtn) {
+      backBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* ---- Scroll reveal animation ---- */
+    function initReveal() {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function(el) { observer.observe(el); });
+    }
+    initReveal();
+
+    /* ---- Floating window system ---- */
+    var overlay  = document.getElementById('floatOverlay');
+    var closeBtn = document.getElementById('floatClose');
+
+    window.openFloatWindow = function(title, meta, body) {
+      document.getElementById('floatTitle').textContent = title || '';
+      document.getElementById('floatMeta').innerHTML = meta || '';
+      document.getElementById('floatBody').innerHTML = body || '';
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    function closeFloat() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeFloat);
+    if (overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeFloat();
+      });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeFloat();
+    });
+
+    /* ---- Toast notification ---- */
+    window.showToast = function(msg, duration) {
+      var toast = document.getElementById('appleToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, duration || 2500);
+    };
+
+    /* ---- Navbar active link ---- */
+    var currentPath = window.location.pathname;
+    var navLinks = document.querySelectorAll('#apple-nav-collapse .nav a');
+    navLinks.forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href && href !== '/' && currentPath.startsWith(href)) {
+        link.closest('li') && link.closest('li').classList.add('active');
+      } else if (href === '/' && currentPath === '/') {
+        link.closest('li') && link.closest('li').classList.add('active');
+      }
+    });
+
+  })();
+  </script>
+
+  {% include JB/analytics %}
+
   </body>
 </html>

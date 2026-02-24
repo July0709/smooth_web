@@ -8,15 +8,15 @@ navorder: 2
 {% include JB/setup %}
 {% for page in site.categories.misc %}
   {% if page.research %}
-  	{% assign researchpage = page %}
+    {% assign researchpage = page %}
   {% endif %}
 {% endfor %}
 
-{% assign software = "" | split: "" %}
+{% assign software   = "" | split: "" %}
 {% assign collecting = "" | split: "" %}
-{% assign analyzing = "" | split: "" %}
-{% assign complete = "" | split: "" %}
-{% assign other = "" | split: "" %}
+{% assign analyzing  = "" | split: "" %}
+{% assign complete   = "" | split: "" %}
+{% assign other      = "" | split: "" %}
 {% assign temp = site.categories.projects | reverse %}
 {% for item in temp %}
     {% if item.type == "software" %}
@@ -32,219 +32,201 @@ navorder: 2
     {% endif %}
 {% endfor %}
 
-<div class="bigspacer"></div>
-<div class="bigtitle text-center">Our Research</div>
-<div class="smallspacer"></div>
-<hr/>
-
-{{ researchpage.content }}
-
-<div class="bigspacer"></div>
-<div class="title text-center">Research Pipeline</div>
-<div class="smallspacer"></div>
-<hr/>
-<img src="/assets/images/research_pipeline.png" alt="Research Pipeline" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; height: auto;"/>
-<hr/>
-<img src="/assets/images/Global_Human_Skin_Microbiome.png" alt="Global Human Skin Microbiome" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; height: auto;"/>
-
-<div class="bigspacer"></div>
-<div class="title text-center">Immunofluorescence</div>
-<div class="smallspacer"></div>
-<hr/>
-<div id = "all">
-    <div id="top">
-        <h1 class="text-center">Skin bacteria influence the development of Langerhans cells.</h1>
-    </div>
-    <div id="bottom">
-        <div class="photo">
-            <img src="\assets\images\research photos\1.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\4.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\7.jpg" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\10.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\2.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\5.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\8.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\11.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\3.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\6.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\9.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-        <div class="photo">
-            <img src="\assets\images\research photos\12.png" alt="Skin bacteria influence the development of Langerhans cells." />
-        </div>
-    </div>
+<!-- ======================================================
+     PAGE HEADER
+     ====================================================== -->
+<div class="section-header reveal" style="padding-top: 32px;">
+  <span class="apple-section-label">SMOOTH Lab</span>
+  <h1 class="apple-section-title" style="margin-top:8px;">Our Research</h1>
+  <p class="apple-section-sub">Advancing skin and mucosal microbiome science</p>
 </div>
+<hr class="apple-divider">
 
-<div class="bigspacer"></div>
-<div class="title text-center">Current Projects (Active Data Collection)</div>
-<div class="smallspacer"></div>
-<hr/>
+<!-- ======================================================
+     RESEARCH OVERVIEW
+     ====================================================== -->
+{% if researchpage.content %}
+<section class="reveal" style="
+  background: #F5F5F7;
+  border-radius: 20px;
+  padding: 40px 48px;
+  margin-bottom: 56px;
+">
+  <div style="font-size:1rem;line-height:1.75;color:#424245;">
+    {{ researchpage.content }}
+  </div>
+</section>
+{% endif %}
 
-<table align="center"; width=1250px>
-    {% tablerow product in collecting cols:2 %}
-    {% if product.image %}
-      {% assign image = product.image %}
-    {% else %}
-      {% assign image = "/assets/images/placeholder.png" %}
-    {% endif %}
+<!-- ======================================================
+     RESEARCH PIPELINE
+     ====================================================== -->
+<section style="margin-bottom: 56px;">
+  <div class="section-header reveal">
+    <span class="apple-section-label">Methodology</span>
+    <h2 class="apple-section-title" style="margin-top:8px;">Research Pipeline</h2>
+  </div>
+  <div class="apple-card reveal" style="overflow:hidden;padding:0;">
+    <img src="/assets/images/research_pipeline.png" alt="Research Pipeline" style="width:100%;height:auto;display:block;">
+  </div>
+  <div class="bigspacer"></div>
+  <div class="apple-card reveal" style="overflow:hidden;padding:0;margin-top:16px;">
+    <img src="/assets/images/Global_Human_Skin_Microbiome.png" alt="Global Human Skin Microbiome" style="width:100%;height:auto;display:block;">
+  </div>
+</section>
 
-    <div class="col-md-2.5 paperbox" style="min-width: 575px">
-      <div class="media" style="width:525px; height:150px">
-        <div class="media">
-            <a class="pull-left" href="{{ product.url }}">
-            <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #808080;">
-            </a>
-            <div class="media-body">
-                <div class="smallhead media-heading">
-                    {% if product.type contains "pilot" %}
-                        <a href="{{ product.url }}" class="off">[PILOT] {{ product.title }}</a>
-                    {% else %}
-                        <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-                    {% endif %}
-                </div>
-                <div class="media-body">
-                  {{ product.tagline }}
-                </div>
-            </div>
+<hr class="apple-divider">
+
+<!-- ======================================================
+     IMMUNOFLUORESCENCE GALLERY
+     ====================================================== -->
+<section style="margin-bottom: 56px;">
+  <div class="section-header reveal">
+    <span class="apple-section-label">Visualization</span>
+    <h2 class="apple-section-title" style="margin-top:8px;">Immunofluorescence</h2>
+    <p class="apple-section-sub">Skin bacteria influence the development of Langerhans cells</p>
+  </div>
+
+  <div id="bottom" class="reveal">
+    <div class="photo"><img src="/assets/images/research photos/1.png" alt="Immunofluorescence 1" /></div>
+    <div class="photo"><img src="/assets/images/research photos/4.png" alt="Immunofluorescence 4" /></div>
+    <div class="photo"><img src="/assets/images/research photos/7.jpg" alt="Immunofluorescence 7" /></div>
+    <div class="photo"><img src="/assets/images/research photos/10.png" alt="Immunofluorescence 10" /></div>
+    <div class="photo"><img src="/assets/images/research photos/2.png" alt="Immunofluorescence 2" /></div>
+    <div class="photo"><img src="/assets/images/research photos/5.png" alt="Immunofluorescence 5" /></div>
+    <div class="photo"><img src="/assets/images/research photos/8.png" alt="Immunofluorescence 8" /></div>
+    <div class="photo"><img src="/assets/images/research photos/11.png" alt="Immunofluorescence 11" /></div>
+    <div class="photo"><img src="/assets/images/research photos/3.png" alt="Immunofluorescence 3" /></div>
+    <div class="photo"><img src="/assets/images/research photos/6.png" alt="Immunofluorescence 6" /></div>
+    <div class="photo"><img src="/assets/images/research photos/9.png" alt="Immunofluorescence 9" /></div>
+    <div class="photo"><img src="/assets/images/research photos/12.png" alt="Immunofluorescence 12" /></div>
+  </div>
+</section>
+
+<hr class="apple-divider">
+
+<!-- ======================================================
+     ACTIVE DATA COLLECTION
+     ====================================================== -->
+{% assign n_collecting = collecting | size %}
+{% if n_collecting > 0 %}
+<section style="margin-bottom: 48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">Active Data Collection</h2>
+    <span class="project-status-badge badge-collecting">{{ n_collecting }} Active</span>
+  </div>
+  <div class="project-grid">
+    {% for product in collecting %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
+    <div class="project-card reveal">
+      <a href="{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      </a>
+      <div class="project-card-body">
+        <span class="project-status-badge badge-collecting">Collecting</span>
+        {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
+        <div class="project-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
+        <div class="project-card-desc">{{ product.tagline }}</div>
       </div>
     </div>
-    <div class="smallspacer"></div>
-  {% endtablerow %}
-</table>
+    {% endfor %}
+  </div>
+</section>
+<hr class="apple-divider">
+{% endif %}
 
-<div class="bigspacer"></div>
-<div class="title text-center">Current Projects (Active Data Analysis)</div>
-<div class="smallspacer"></div>
-<hr />
-
-<table align="center" ; width=1250px>
-    {% tablerow product in analyzing cols:2 %}
-    {% if product.image %}
-        {% assign image = product.image %}
-    {% else %}
-        {% assign image = "/assets/images/placeholder.png" %}
-    {% endif %}
-
-    <div class="col-md-2.5 paperbox" style="min-width: 575px">
-        <div class="media" style="width:525px; height:150px">
-            <div class="media">
-                <a class="pull-left" href="{{ product.url }}">
-                    <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #808080;">
-                </a>
-                <div class="media-body">
-                    <div class="smallhead media-heading">
-                        {% if product.type contains "pilot" %}
-                            <a href="{{ product.url }}" class="off">[PILOT] {{ product.title }}</a>
-                        {% else %}
-                            <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-                        {% endif %}
-                    </div>
-                    <div class="media-body">
-                        {{ product.tagline }}
-                    </div>
-                </div>
-            </div>
+<!-- ======================================================
+     ACTIVE DATA ANALYSIS
+     ====================================================== -->
+{% assign n_analyzing = analyzing | size %}
+{% if n_analyzing > 0 %}
+<section style="margin-bottom: 48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">Active Data Analysis</h2>
+    <span class="project-status-badge badge-analyzing">{{ n_analyzing }} Active</span>
+  </div>
+  <div class="project-grid">
+    {% for product in analyzing %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
+    <div class="project-card reveal">
+      <a href="{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      </a>
+      <div class="project-card-body">
+        <span class="project-status-badge badge-analyzing">Analyzing</span>
+        {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
+        <div class="project-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
+        <div class="project-card-desc">{{ product.tagline }}</div>
+      </div>
     </div>
-    <div class="smallspacer"></div>
-    {% endtablerow %}
-</table>
+    {% endfor %}
+  </div>
+</section>
+<hr class="apple-divider">
+{% endif %}
 
-<div class="bigspacer"></div>
-<div class="title text-center">Software</div>
-<div class="smallspacer"></div>
-<hr />
-
-<table align="center" ; width=1250px>
-    {% tablerow product in software cols:2 %}
-    {% if product.image %}
-    {% assign image = product.image %}
-    {% else %}
-    {% assign image = "/assets/images/placeholder-software.png" %}
-    {% endif %}
-
-    <div class="col-md-2.5 paperbox" style="min-width: 575px">
-        <div class="media" style="width:525px; height:150px">
-            <div class="media">
-                <a class="pull-left" href="{{ product.url }}">
-                    <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #808080;">
-                </a>
-                <div class="media-body">
-                    <div class="smallhead media-heading">
-                        {% if product.type contains "pilot" %}
-                            <a href="{{ product.url }}" class="off">[PILOT] {{ product.title }}</a>
-                        {% else %}
-                            <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-                        {% endif %}
-                    </div>
-                    <div class="media-body">
-                        {{ product.tagline }}
-                    </div>
-                </div>
-            </div>
+<!-- ======================================================
+     SOFTWARE
+     ====================================================== -->
+{% assign n_software = software | size %}
+{% if n_software > 0 %}
+<section style="margin-bottom: 48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">Software</h2>
+    <span class="project-status-badge badge-software">{{ n_software }} Tools</span>
+  </div>
+  <div class="project-grid">
+    {% for product in software %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder-software.png" %}{% endif %}
+    <div class="project-card reveal">
+      <a href="{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      </a>
+      <div class="project-card-body">
+        <span class="project-status-badge badge-software">Software</span>
+        <div class="project-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
+        <div class="project-card-desc">{{ product.tagline }}</div>
+      </div>
     </div>
-    <div class="smallspacer"></div>
-    {% endtablerow %}
-</table>
+    {% endfor %}
+  </div>
+</section>
+<hr class="apple-divider">
+{% endif %}
 
-<div class="bigspacer"></div>
-<div class="title text-center">Completed Projects</div>
-<div class="smallspacer"></div>
-<hr />
-
-<table align="center" ; width=1250px>
-    {% tablerow product in complete cols:2 %}
-    {% if product.image %}
-    {% assign image = product.image %}
-    {% else %}
-    {% assign image = "/assets/images/placeholder.png" %}
-    {% endif %}
-
-    <div class="col-md-2.5 paperbox" style="min-width: 575px">
-        <div class="media" style="width:525px; height:150px">
-            <div class="media">
-                <a class="pull-left" href="{{ product.url }}">
-                    <img width=100 class="media-object" src="{{ image }}" style="border:1px solid #808080;">
-                </a>
-                <div class="media-body">
-                    <div class="smallhead media-heading">
-                        {% if product.type contains "pilot" %}
-                        <a href="{{ product.url }}" class="off">[PILOT] {{ product.title }}</a>
-                        {% else %}
-                        <a href="{{ product.url }}" class="off">{{ product.title }}</a>
-                        {% endif %}
-                    </div>
-                    <div class="media-body">
-                        {{ product.tagline }}
-                    </div>
-                </div>
-            </div>
+<!-- ======================================================
+     COMPLETED PROJECTS
+     ====================================================== -->
+{% assign n_complete = complete | size %}
+{% if n_complete > 0 %}
+<section style="margin-bottom: 48px;">
+  <div class="reveal" style="margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+    <h2 class="title" style="margin:0;">Completed Projects</h2>
+    <span class="project-status-badge badge-complete">{{ n_complete }}</span>
+  </div>
+  <div class="project-grid">
+    {% for product in complete %}
+    {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
+    <div class="project-card reveal" style="opacity:0.85;">
+      <a href="{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      </a>
+      <div class="project-card-body">
+        <span class="project-status-badge badge-complete">Complete</span>
+        {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
+        <div class="project-card-title">
+          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
+        <div class="project-card-desc">{{ product.tagline }}</div>
+      </div>
     </div>
-    <div class="smallspacer"></div>
-    {% endtablerow %}
-</table>
-
-<div class="bigspacer"></div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
