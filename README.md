@@ -1,4 +1,5 @@
 # The SMOOTH Lab website
+现在这个项目已经移到新的网址了，这个项目作为SMOOTH网站的基础模型，可以通过下载到本地查看部署，目前不在Github托管
 
 # TODOS
 
