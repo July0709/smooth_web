@@ -67,11 +67,11 @@ navorder: 2
     <h2 class="apple-section-title" style="margin-top:8px;">Research Pipeline</h2>
   </div>
   <div class="apple-card reveal" style="overflow:hidden;padding:0;">
-    <img src="/assets/images/research_pipeline.png" alt="Research Pipeline" style="width:100%;height:auto;display:block;">
+    <img src="{{ site.baseurl }}/assets/images/research_pipeline.png" alt="Research Pipeline" style="width:100%;height:auto;display:block;">
   </div>
   <div class="bigspacer"></div>
   <div class="apple-card reveal" style="overflow:hidden;padding:0;margin-top:16px;">
-    <img src="/assets/images/Global_Human_Skin_Microbiome.png" alt="Global Human Skin Microbiome" style="width:100%;height:auto;display:block;">
+    <img src="{{ site.baseurl }}/assets/images/Global_Human_Skin_Microbiome.png" alt="Global Human Skin Microbiome" style="width:100%;height:auto;display:block;">
   </div>
 </section>
 
@@ -88,18 +88,18 @@ navorder: 2
   </div>
 
   <div id="bottom" class="reveal">
-    <div class="photo"><img src="/assets/images/research photos/1.png" alt="Immunofluorescence 1" /></div>
-    <div class="photo"><img src="/assets/images/research photos/4.png" alt="Immunofluorescence 4" /></div>
-    <div class="photo"><img src="/assets/images/research photos/7.jpg" alt="Immunofluorescence 7" /></div>
-    <div class="photo"><img src="/assets/images/research photos/10.png" alt="Immunofluorescence 10" /></div>
-    <div class="photo"><img src="/assets/images/research photos/2.png" alt="Immunofluorescence 2" /></div>
-    <div class="photo"><img src="/assets/images/research photos/5.png" alt="Immunofluorescence 5" /></div>
-    <div class="photo"><img src="/assets/images/research photos/8.png" alt="Immunofluorescence 8" /></div>
-    <div class="photo"><img src="/assets/images/research photos/11.png" alt="Immunofluorescence 11" /></div>
-    <div class="photo"><img src="/assets/images/research photos/3.png" alt="Immunofluorescence 3" /></div>
-    <div class="photo"><img src="/assets/images/research photos/6.png" alt="Immunofluorescence 6" /></div>
-    <div class="photo"><img src="/assets/images/research photos/9.png" alt="Immunofluorescence 9" /></div>
-    <div class="photo"><img src="/assets/images/research photos/12.png" alt="Immunofluorescence 12" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/1.png" alt="Immunofluorescence 1" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/4.png" alt="Immunofluorescence 4" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/7.jpg" alt="Immunofluorescence 7" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/10.png" alt="Immunofluorescence 10" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/2.png" alt="Immunofluorescence 2" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/5.png" alt="Immunofluorescence 5" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/8.png" alt="Immunofluorescence 8" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/11.png" alt="Immunofluorescence 11" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/3.png" alt="Immunofluorescence 3" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/6.png" alt="Immunofluorescence 6" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/9.png" alt="Immunofluorescence 9" /></div>
+    <div class="photo"><img src="{{ site.baseurl }}/assets/images/research photos/12.png" alt="Immunofluorescence 12" /></div>
   </div>
 </section>
 
@@ -119,14 +119,14 @@ navorder: 2
     {% for product in collecting %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
     <div class="project-card reveal">
-      <a href="{{ product.url }}" tabindex="-1">
-        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      <a href="{{ site.baseurl }}{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
       </a>
       <div class="project-card-body">
         <span class="project-status-badge badge-collecting">Collecting</span>
         {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
         <div class="project-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="project-card-desc">{{ product.tagline }}</div>
       </div>
@@ -151,14 +151,14 @@ navorder: 2
     {% for product in analyzing %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
     <div class="project-card reveal">
-      <a href="{{ product.url }}" tabindex="-1">
-        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      <a href="{{ site.baseurl }}{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
       </a>
       <div class="project-card-body">
         <span class="project-status-badge badge-analyzing">Analyzing</span>
         {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
         <div class="project-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="project-card-desc">{{ product.tagline }}</div>
       </div>
@@ -183,13 +183,13 @@ navorder: 2
     {% for product in software %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder-software.png" %}{% endif %}
     <div class="project-card reveal">
-      <a href="{{ product.url }}" tabindex="-1">
-        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      <a href="{{ site.baseurl }}{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
       </a>
       <div class="project-card-body">
         <span class="project-status-badge badge-software">Software</span>
         <div class="project-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="project-card-desc">{{ product.tagline }}</div>
       </div>
@@ -214,14 +214,14 @@ navorder: 2
     {% for product in complete %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "/assets/images/placeholder.png" %}{% endif %}
     <div class="project-card reveal" style="opacity:0.85;">
-      <a href="{{ product.url }}" tabindex="-1">
-        <img class="project-card-img" src="{{ image }}" alt="{{ product.title }}">
+      <a href="{{ site.baseurl }}{{ product.url }}" tabindex="-1">
+        <img class="project-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
       </a>
       <div class="project-card-body">
         <span class="project-status-badge badge-complete">Complete</span>
         {% if product.type contains "pilot" %}<span class="project-status-badge badge-pilot">Pilot</span>{% endif %}
         <div class="project-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="project-card-desc">{{ product.tagline }}</div>
       </div>

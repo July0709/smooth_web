@@ -52,9 +52,9 @@ navorder: 3
     {% for product in preprints %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
     <div class="paper-card reveal">
-      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+      <a href="{{ site.baseurl }}{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
         {% if image != "" %}
-          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+          <img class="paper-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
         {% else %}
           <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
             <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
@@ -65,11 +65,11 @@ navorder: 3
         <span class="paper-tag">Preprint</span>
         <div class="paper-card-title">
           {% if product.tags contains "chapter" %}
-            <a href="{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
+            <a href="{{ site.baseurl }}{{ product.url }}" class="off">[CHAPTER] {{ product.title }}</a>
           {% elsif product.tags contains "correspondence" %}
-            <a href="{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
+            <a href="{{ site.baseurl }}{{ product.url }}" class="off">[CORRESPONDENCE] {{ product.title }}</a>
           {% else %}
-            <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+            <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
           {% endif %}
         </div>
         <div class="paper-card-authors">
@@ -80,7 +80,7 @@ navorder: 3
               {% for science_name in member.science_names %}
                 {% if author == science_name %}
                   {% assign author_in_lab = true %}
-                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
+                  <a class="off" href="{{ site.baseurl }}{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
                 {% endif %}
               {% endfor %}
             {% endfor %}
@@ -114,9 +114,9 @@ navorder: 3
     {% for product in in_press %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
     <div class="paper-card reveal">
-      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+      <a href="{{ site.baseurl }}{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
         {% if image != "" %}
-          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+          <img class="paper-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
         {% else %}
           <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
             <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
@@ -126,7 +126,7 @@ navorder: 3
       <div class="paper-card-body">
         <span class="paper-tag" style="background:rgba(52,199,89,0.12);color:#1B7A32;">In Press</span>
         <div class="paper-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="paper-card-authors">
           {% assign split_authors = product.authors | split: ", " %}
@@ -136,7 +136,7 @@ navorder: 3
               {% for science_name in member.science_names %}
                 {% if author == science_name %}
                   {% assign author_in_lab = true %}
-                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
+                  <a class="off" href="{{ site.baseurl }}{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>,
                 {% endif %}
               {% endfor %}
             {% endfor %}
@@ -182,9 +182,9 @@ navorder: 3
     {% for product in year_products %}
     {% if product.image %}{% assign image = product.image %}{% else %}{% assign image = "" %}{% endif %}
     <div class="paper-card reveal">
-      <a href="{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
+      <a href="{{ site.baseurl }}{{ product.url }}" style="flex-shrink:0;" tabindex="-1">
         {% if image != "" %}
-          <img class="paper-card-img" src="{{ image }}" alt="{{ product.title }}">
+          <img class="paper-card-img" src="{{ site.baseurl }}{{ image }}" alt="{{ product.title }}">
         {% else %}
           <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;background:#F5F5F7;">
             <i class="fa fa-file-text-o" style="font-size:22px;color:#C7C7CC;"></i>
@@ -198,7 +198,7 @@ navorder: 3
           <span class="paper-tag">Correspondence</span>
         {% endif %}
         <div class="paper-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <div class="paper-card-authors">
           {% assign split_authors = product.authors | split: ", " %}
@@ -208,14 +208,14 @@ navorder: 3
               {% for science_name in member.science_names %}
                 {% if author == science_name %}
                   {% assign author_in_lab = true %}
-                  <a class="on" href="{{ member.url }}">{{ science_name }}</a>,
+                  <a class="on" href="{{ site.baseurl }}{{ member.url }}">{{ science_name }}</a>,
                 {% endif %}
               {% endfor %}
             {% endfor %}
             {% for collab in site.data.collaborators %}
               {% if author == collab.science_name %}
                 {% assign author_in_lab = true %}
-                <a class="off" href="{{ collab.url }}">{{ collab.science_name }}</a>,
+                <a class="off" href="{{ site.baseurl }}{{ collab.url }}">{{ collab.science_name }}</a>,
               {% endif %}
             {% endfor %}
             {% if author_in_lab == false %}{{ author }},{% endif %}

@@ -30,7 +30,7 @@ navorder: 1
 
 <!-- Lab Photo -->
 <div class="lab-photo-container reveal" style="margin-bottom:60px;">
-  <img src="/assets/images/photos/lab_photo.png" alt="SMOOTH Lab group photo" style="width:100%;height:auto;display:block;max-height:500px;object-fit:cover;">
+  <img src="{{ site.baseurl }}/assets/images/photos/lab_photo.png" alt="SMOOTH Lab group photo" style="width:100%;height:auto;display:block;max-height:500px;object-fit:cover;">
 </div>
 
 <hr class="apple-divider">
@@ -51,11 +51,11 @@ navorder: 1
       {% assign image = "/assets/images/placeholder-user.png" %}
     {% endif %}
     <div class="team-card reveal">
-      <a href="{{ member.url }}" tabindex="-1" aria-hidden="true">
-        <img class="team-card-photo" src="{{ image }}" alt="{{ member.title }}">
+      <a href="{{ site.baseurl }}{{ member.url }}" tabindex="-1" aria-hidden="true">
+        <img class="team-card-photo" src="{{ site.baseurl }}{{ image }}" alt="{{ member.title }}">
       </a>
       <div class="team-card-name">
-        <a href="{{ member.url }}" class="off">{{ member.title }}</a>
+        <a href="{{ site.baseurl }}{{ member.url }}" class="off">{{ member.title }}</a>
       </div>
       <div class="team-card-position">{{ member.position }}</div>
       <div class="team-card-dept">{{ member.department }}</div>
@@ -117,10 +117,10 @@ navorder: 1
       {% assign image = "/assets/images/placeholder-user.png" %}
     {% endif %}
     <div class="alumni-card reveal">
-      <img class="alumni-card-photo" src="{{ image }}" alt="{{ member.title }}">
+      <img class="alumni-card-photo" src="{{ site.baseurl }}{{ image }}" alt="{{ member.title }}">
       <div class="alumni-card-info">
         <div class="alumni-card-name">
-          <a href="{{ member.url }}" class="off">{{ member.title }}</a>
+          <a href="{{ site.baseurl }}{{ member.url }}" class="off">{{ member.title }}</a>
         </div>
         <div class="alumni-card-position">{{ member.position }}</div>
         <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">

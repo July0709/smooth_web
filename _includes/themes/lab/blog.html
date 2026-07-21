@@ -4,7 +4,7 @@
   by
   {% for member in site.categories.team %}
       {% if page.author == member.handle %}
-          <a class="off" href="{{ member.url }}">{{ member.title }}</a>
+          <a class="off" href="{{ site.baseurl }}{{ member.url }}">{{ member.title }}</a>
       {% endif %}
   {% endfor %}
 </div>
@@ -17,7 +17,7 @@
     {% if page.image %}
       <div class="bigspacer"></div>
       <div class="bigspacer"></div>
-      <img class="offset" src="{{ page.image }}" style="width:auto">
+      <img class="offset" src="{{ site.baseurl }}{{ page.image }}" style="width:auto">
       <div class="bigspacer"></div>
     {% endif %}
 

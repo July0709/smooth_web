@@ -23,13 +23,13 @@ categories:
     </ol>
     <div class="carousel-inner">
       <div class="active item">
-        <img src="/assets/images/banners/Picture1b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+        <img src="{{ site.baseurl }}/assets/images/banners/Picture1b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
       </div>
       <div class="item">
-        <img src="/assets/images/banners/Picture2b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+        <img src="{{ site.baseurl }}/assets/images/banners/Picture2b.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
       </div>
       <div class="item">
-        <img src="/assets/images/banners/Picture6a.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
+        <img src="{{ site.baseurl }}/assets/images/banners/Picture6a.png" style="width:100%;max-height:500px;object-fit:cover;display:block;" alt="SMOOTH Lab Research">
       </div>
     </div>
     <!-- Carousel nav -->
@@ -53,8 +53,8 @@ categories:
       The SMOOTH Lab investigates the intricate relationships between microbial communities and skin health, developing novel therapies to improve patient outcomes.
     </p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="/projects/" class="apple-btn apple-btn-primary">Our Research</a>
-      <a href="/papers/" class="apple-btn apple-btn-secondary">Publications</a>
+      <a href="{{ site.baseurl }}/projects/" class="apple-btn apple-btn-primary">Our Research</a>
+      <a href="{{ site.baseurl }}/papers/" class="apple-btn apple-btn-secondary">Publications</a>
     </div>
   </div>
 </section>
@@ -121,9 +121,9 @@ categories:
     {% for product in recent limit:10 %}
     <div class="paper-card reveal reveal-delay-{{ forloop.index | modulo: 3 | plus: 1 }}">
       <!-- Paper image -->
-      <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+      <a href="{{ site.baseurl }}{{ product.url }}" tabindex="-1" aria-hidden="true">
         {% if product.image %}
-          <img class="paper-card-img" src="{{ product.image }}" alt="{{ product.title }}">
+          <img class="paper-card-img" src="{{ site.baseurl }}{{ product.image }}" alt="{{ product.title }}">
         {% else %}
           <div class="paper-card-img" style="display:flex;align-items:center;justify-content:center;">
             <i class="fa fa-file-text-o" style="font-size:24px;color:#C7C7CC;"></i>
@@ -141,7 +141,7 @@ categories:
         {% endif %}
         <!-- Title -->
         <div class="paper-card-title">
-          <a href="{{ product.url }}" class="off">{{ product.title }}</a>
+          <a href="{{ site.baseurl }}{{ product.url }}" class="off">{{ product.title }}</a>
         </div>
         <!-- Authors -->
         <div class="paper-card-authors">
@@ -152,7 +152,7 @@ categories:
               {% for science_name in member.science_names %}
                 {% if author == science_name %}
                   {% assign author_in_lab = true %}
-                  <a class="off" href="{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>{% unless forloop.last %},{% endunless %}
+                  <a class="off" href="{{ site.baseurl }}{{ member.url }}" style="color:#0071E3;">{{ science_name }}</a>{% unless forloop.last %},{% endunless %}
                 {% endif %}
               {% endfor %}
             {% endfor %}
@@ -176,7 +176,7 @@ categories:
   </div>
 
   <div style="text-align:center;margin-top:16px;" class="reveal">
-    <a href="/papers/" class="apple-btn apple-btn-secondary">View All Publications →</a>
+    <a href="{{ site.baseurl }}/papers/" class="apple-btn apple-btn-secondary">View All Publications →</a>
   </div>
 </section>
 

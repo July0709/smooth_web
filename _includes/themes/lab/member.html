@@ -23,7 +23,7 @@
 ">
   <!-- Photo -->
   <div style="flex-shrink:0;text-align:center;">
-    <img src="{{ image }}" alt="{{ member.title }}" style="
+    <img src="{{ site.baseurl }}{{ image }}" alt="{{ member.title }}" style="
       width: 160px; height: 160px;
       border-radius: 50%;
       object-fit: cover;
@@ -137,7 +137,7 @@
   <div style="display:flex;flex-direction:column;gap:10px;">
     {% for project in site.categories.projects %}
       {% if project.contributors contains member.handle %}
-        <a href="{{ project.url }}" class="off" style="
+        <a href="{{ site.baseurl }}{{ project.url }}" class="off" style="
           display:flex;align-items:center;gap:14px;
           padding:14px 18px;
           background:#F5F5F7;
@@ -162,7 +162,7 @@
   <div style="display:flex;flex-direction:column;gap:10px;">
     {% for blog in site.categories.blog %}
       {% if blog.author contains member.handle %}
-        <a href="{{ blog.url }}" class="off" style="
+        <a href="{{ site.baseurl }}{{ blog.url }}" class="off" style="
           display:flex;align-items:center;gap:14px;
           padding:14px 18px;
           background:#F5F5F7;
@@ -190,7 +190,7 @@
       {% for author in split_authors %}
         {% for science_name in member.science_names %}
           {% if author == science_name %}
-            <a href="{{ paper.url }}" class="off" style="
+            <a href="{{ site.baseurl }}{{ paper.url }}" class="off" style="
               display:flex;align-items:flex-start;gap:14px;
               padding:14px 18px;
               background:#F5F5F7;

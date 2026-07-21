@@ -15,7 +15,7 @@
     <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"/>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="/assets/themes/lab/images/logo/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="{{ site.baseurl }}/assets/themes/lab/images/logo/favicon.png"/>
 
     <!-- Icons -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css"/>
@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand" style="display:flex;align-items:center;gap:10px;padding:0;height:52px;line-height:52px;">
+        <a href="{{ HOME_PATH }}" class="navbar-brand" style="display:flex;align-items:center;gap:10px;padding:0;height:52px;line-height:52px;">
           <img src="{{ ASSET_PATH }}/images/logo/logo.png" height="32" alt="SMOOTH Lab logo" style="vertical-align:middle;">
           <span style="font-size:15px;font-weight:600;color:#1D1D1F;letter-spacing:-0.01em;">SMOOTH Lab</span>
         </a>
@@ -93,24 +93,24 @@
           <div>
             <div style="font-size:11px;font-weight:600;color:#1D1D1F;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;">Lab</div>
             <ul style="list-style:none;margin:0;padding:0;">
-              <li style="margin-bottom:6px;"><a href="/team/" style="font-size:12px;color:#515154;">Team</a></li>
-              <li style="margin-bottom:6px;"><a href="/projects/" style="font-size:12px;color:#515154;">Research</a></li>
-              <li style="margin-bottom:6px;"><a href="/papers/" style="font-size:12px;color:#515154;">Papers</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/team/" style="font-size:12px;color:#515154;">Team</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/projects/" style="font-size:12px;color:#515154;">Research</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/papers/" style="font-size:12px;color:#515154;">Papers</a></li>
             </ul>
           </div>
           <div>
             <div style="font-size:11px;font-weight:600;color:#1D1D1F;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;">Connect</div>
             <ul style="list-style:none;margin:0;padding:0;">
-              <li style="margin-bottom:6px;"><a href="/contact.html#join" style="font-size:12px;color:#515154;">Join</a></li>
-              <li style="margin-bottom:6px;"><a href="/contact.html#contact" style="font-size:12px;color:#515154;">Contact</a></li>
-              <li style="margin-bottom:6px;"><a href="/about.html" style="font-size:12px;color:#515154;">About</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/contact.html#join" style="font-size:12px;color:#515154;">Join</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/contact.html#contact" style="font-size:12px;color:#515154;">Contact</a></li>
+              <li style="margin-bottom:6px;"><a href="{{ site.baseurl }}/about.html" style="font-size:12px;color:#515154;">About</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(0,0,0,0.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
         <p style="font-size:11px;color:#86868B;margin:0;">Copyright &copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Jekyll.</p>
-        <a href="/about.html#about-the-site" style="font-size:11px;color:#86868B;">About this site</a>
+        <a href="{{ site.baseurl }}/about.html#about-the-site" style="font-size:11px;color:#86868B;">About this site</a>
       </div>
     </div>
   </footer>
