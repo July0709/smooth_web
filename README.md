@@ -11,7 +11,7 @@
 ## 📖 关于这个仓库
 
 这里保存的是 SMOOTH Lab 实验室网站的**初代版本**。
-是fork的[NBCLab]（https://github.com/NBCLab/nbclab.github.io）
+是fork的[NBCLab的网页](https://github.com/NBCLab/nbclab.github.io)
 
 从第一行代码到第一次上线，这个仓库见证了实验室主页从无到有的过程：
 每一次深夜的样式调整、每一版排版的推翻重来、每一位文章信息的逐条录入——都留在 commit 历史里。
